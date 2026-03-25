@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is It More Than Just Tiredness? | Parents2Be International</title>
+<meta name="description" content="A partner wellbeing assessment for those watching a new father struggle. 7 questions. 2 minutes. An answer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --gold: #C9A84C;
+    --gold-light: #E2C97E;
+    --white: #F5F2EC;
+    --white-dim: rgba(245,242,236,0.6);
+    --white-faint: rgba(245,242,236,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.4;
+  }
+
+  /* LAYOUT */
+  .screen {
+    display: none;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  .screen.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* BRAND HEADER */
+  .brand {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+    border-bottom: 1px solid var(--white-faint);
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+  }
+
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .brand-tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+  }
+
+  /* INTRO SCREEN */
+  .intro-content {
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    padding-top: 80px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  .intro-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 8vw, 58px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 28px;
+    color: var(--white);
+  }
+
+  .intro-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .intro-body {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--white-dim);
+    margin-bottom: 48px;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .intro-body strong {
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 52px;
+    padding: 28px 32px;
+    border: 1px solid var(--white-faint);
+    border-radius: 2px;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    padding: 18px 48px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .disclaimer {
+    font-size: 11px;
+    color: var(--white-faint);
+    letter-spacing: 0.05em;
+  }
+
+  /* QUESTION SCREEN */
+  .question-wrap {
+    max-width: 600px;
+    width: 100%;
+    padding-top: 100px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 1px;
+    background: var(--white-faint);
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.5s ease;
+  }
+
+  .q-counter {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--white);
+    margin-bottom: 40px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .option {
+    padding: 18px 24px;
+    border: 1px solid var(--white-faint);
+    background: transparent;
+    color: var(--white-dim);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    line-height: 1.5;
+  }
+
+  .option:hover {
+    border-color: var(--gold);
+    color: var(--white);
+    background: rgba(201,168,76,0.06);
+  }
+
+  .option.selected {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.12);
+    color: var(--white);
+  }
+
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn-back {
+    background: transparent;
+    border: 1px solid var(--white-faint);
+    color: var(--white-dim);
+    padding: 12px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .btn-back:hover {
+    border-color: var(--white-dim);
+    color: var(--white);
+  }
+
+  .btn-next {
+    background: var(--gold);
+    border: none;
+    color: var(--black);
+    padding: 14px 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .btn-next.enabled {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .btn-next.enabled:hover {
+    background: var(--gold-light);
+  }
+
+  /* RESULT SCREEN */
+  .result-wrap {
+    max-width: 620px;
+    width: 100%;
+    padding-top: 100px;
+  }
+
+  .result-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .result-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 6vw, 44px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .result-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .result-body {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--white-dim);
+    margin-bottom: 40px;
+  }
+
+  .result-body strong {
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  /* EMAIL CAPTURE */
+  .email-capture {
+    border: 1px solid var(--white-faint);
+    padding: 36px 32px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .email-capture::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--gold);
+  }
+
+  .email-capture-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .email-capture-sub {
+    font-size: 13px;
+    color: var(--white-dim);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .email-capture-sub strong {
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+
+  .email-row {
+    display: flex;
+    gap: 0;
+  }
+
+  .email-input {
+    flex: 1;
+    background: rgba(245,242,236,0.05);
+    border: 1px solid var(--white-faint);
+    border-right: none;
+    color: var(--white);
+    padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.25s;
+  }
+
+  .email-input::placeholder { color: rgba(245,242,236,0.3); }
+
+  .email-input:focus {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+
+  .btn-email {
+    background: var(--gold);
+    border: none;
+    color: var(--black);
+    padding: 14px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s;
+  }
+
+  .btn-email:hover { background: var(--gold-light); }
+
+  .btn-email:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .email-privacy {
+    font-size: 11px;
+    color: rgba(245,242,236,0.3);
+    margin-top: 12px;
+    letter-spacing: 0.03em;
+  }
+
+  .email-success {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .email-success-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .email-success-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+  }
+
+  .email-success-sub {
+    font-size: 13px;
+    color: var(--white-dim);
+  }
+
+  .skip-link {
+    font-size: 11px;
+    color: rgba(245,242,236,0.3);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    display: block;
+    text-align: center;
+    margin-bottom: 32px;
+    transition: color 0.2s;
+  }
+
+  .skip-link:hover { color: var(--white-dim); }
+
+  /* NEXT STEPS */
+  .next-steps {
+    border-top: 1px solid var(--white-faint);
+    padding-top: 32px;
+    margin-bottom: 48px;
+  }
+
+  .next-steps-title {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    margin-bottom: 20px;
+  }
+
+  .next-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--white-faint);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .next-card:last-child { border-bottom: none; }
+
+  .next-card:hover .next-card-title { color: var(--gold-light); }
+
+  .next-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--gold);
+    min-width: 32px;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .next-card-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 4px;
+    transition: color 0.25s;
+  }
+
+  .next-card-desc {
+    font-size: 12px;
+    color: var(--white-dim);
+    line-height: 1.6;
+  }
+
+  /* RETAKE */
+  .btn-retake {
+    background: transparent;
+    border: 1px solid var(--white-faint);
+    color: var(--white-dim);
+    padding: 12px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-bottom: 48px;
+  }
+
+  .btn-retake:hover {
+    border-color: var(--white-dim);
+    color: var(--white);
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--white-faint);
+    font-size: 11px;
+    color: rgba(245,242,236,0.25);
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+  }
+
+  .footer a {
+    color: rgba(245,242,236,0.35);
+    text-decoration: none;
+  }
+
+  /* SCORE INDICATOR */
+  .score-band {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border: 1px solid var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .score-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .score-text {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  @media (max-width: 480px) {
+    .stats-row { gap: 24px; padding: 20px; }
+    .email-row { flex-direction: column; }
+    .email-input { border-right: 1px solid var(--white-faint); border-bottom: none; }
+    .brand-tag { display: none; }
+    .email-capture { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="brand">
+  <span class="brand-name">Parents2Be International</span>
+  <span class="brand-tag">Partner Wellbeing Assessment</span>
+</header>
+
+<!-- INTRO SCREEN -->
+<div class="screen active" id="screen-intro">
+  <div class="intro-content">
+    <p class="eyebrow">Partner Wellbeing Assessment</p>
+    <h1 class="intro-title">Is it more than<br><em>just tiredness?</em></h1>
+    <p class="intro-body">
+      Something has shifted. You can feel it — but you can't quite name it.<br><br>
+      <strong>This isn't a quiz about your partner. It's a quiz about what you're witnessing.</strong><br><br>
+      Seven questions. Two minutes. An answer that finally gives you a word for what you've been watching unfold.
+    </p>
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Questions</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Minutes</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">Free</span>
+        <span class="stat-label">Result</span>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="startQuiz()">Begin the Assessment</button>
+    <p class="disclaimer">For partners and co-parents of new fathers. Not a clinical tool. No data stored without consent.</p>
+  </div>
+</div>
+
+<!-- QUESTION SCREEN -->
+<div class="screen" id="screen-question">
+  <div class="question-wrap">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <p class="q-counter" id="q-counter">Question 1 of 7</p>
+    <h2 class="q-text" id="q-text"></h2>
+    <div class="options" id="options-container"></div>
+    <div class="nav-row">
+      <button class="btn-back" id="btn-back" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div class="screen" id="screen-result">
+  <div class="result-wrap">
+    <p class="result-label">Your Assessment Result</p>
+    <div class="score-band" id="score-band">
+      <div class="score-dot"></div>
+      <span class="score-text" id="score-text"></span>
+    </div>
+    <h2 class="result-title" id="result-title"></h2>
+    <div class="result-divider"></div>
+    <p class="result-body" id="result-body"></p>
+
+    <!-- EMAIL CAPTURE -->
+    <div class="email-capture" id="email-capture-block">
+      <h3 class="email-capture-title">Want to understand what comes next?</h3>
+      <p class="email-capture-sub">
+        Enter your email and we'll send you <strong>The 7 Signs — free.</strong><br>
+        A guide written by a partner who witnessed this first-hand. What it looks like. What it means. What to do.
+      </p>
+      <div id="email-form-wrap">
+        <div class="email-row">
+          <input type="email" class="email-input" id="email-input" placeholder="Your email address" />
+          <button class="btn-email" id="btn-email" onclick="submitEmail()">Send it to me</button>
+        </div>
+        <p class="email-privacy">No spam. Unsubscribe any time. Your email is never shared.</p>
+      </div>
+      <div class="email-success" id="email-success">
+        <div class="email-success-icon">✦</div>
+        <p class="email-success-text">On its way to you.</p>
+        <p class="email-success-sub">Check your inbox — the guide will be there shortly.</p>
+      </div>
+    </div>
+
+    <button class="skip-link" onclick="skipEmail()">No thanks, continue without the guide</button>
+
+    <div class="next-steps" id="next-steps" style="display:none">
+      <p class="next-steps-title">What you can do right now</p>
+      <a class="next-card" href="https://parents2beintl.lemonsqueezy.com/checkout/buy/8a3f0cdb-2857-49d0-b3e2-c7d379d9b9b6" target="_blank">
+        <span class="next-card-num">01</span>
+        <div>
+          <p class="next-card-title">The New Father's Postpartum Code — £47</p>
+          <p class="next-card-desc">45 pages. Written by a partner who witnessed paternal PPD first-hand. The full picture of what's happening and the path through — for both of you.</p>
+        </div>
+      </a>
+      <a class="next-card" href="http://subscribepage.io/W3WGYX" target="_blank">
+        <span class="next-card-num">02</span>
+        <div>
+          <p class="next-card-title">Get the free 7 Signs guide</p>
+          <p class="next-card-desc">The seven signs of paternal postpartum depression. Explained plainly. Free to download.</p>
+        </div>
+      </a>
+      <a class="next-card" href="https://www.parents2beintl.com" target="_blank">
+        <span class="next-card-num">03</span>
+        <div>
+          <p class="next-card-title">Visit Parents2Be International</p>
+          <p class="next-card-desc">Resources, articles, and community for families navigating paternal postpartum.</p>
+        </div>
+      </a>
+    </div>
+
+    <button class="btn-retake" onclick="retakeQuiz()">Retake the Assessment</button>
+  </div>
+  <footer class="footer">
+    This assessment is for informational purposes only and does not constitute medical advice.<br>
+    If you or your partner are in crisis, please contact your GP or call NHS 111.<br><br>
+    © Parents2Be International · <a href="https://www.parents2beintl.com">parents2beintl.com</a>
+  </footer>
+</div>
+
+<script>
+const questions = [
+  {
+    text: "In the past few weeks, has your partner seemed emotionally distant — present in the room but not really there?",
+    options: [
+      { text: "Yes, noticeably — it's been hard to reach him", score: 3 },
+      { text: "Sometimes, but I put it down to tiredness", score: 2 },
+      { text: "Occasionally, but nothing that concerns me", score: 1 },
+      { text: "No, he seems emotionally present", score: 0 }
+    ]
+  },
+  {
+    text: "Has his temper or irritability changed since the baby arrived?",
+    options: [
+      { text: "Yes — he's noticeably more short-tempered or reactive", score: 3 },
+      { text: "He seems on edge, but I'd expect that with a newborn", score: 2 },
+      { text: "Minor changes, nothing significant", score: 1 },
+      { text: "No change in his temperament", score: 0 }
+    ]
+  },
+  {
+    text: "Has he withdrawn from things he used to enjoy — hobbies, friends, activities outside the home?",
+    options: [
+      { text: "Yes, he's pulled back from almost everything", score: 3 },
+      { text: "He's less engaged, but he's been busy with the baby", score: 2 },
+      { text: "A little, but that seems normal right now", score: 1 },
+      { text: "No, he's still engaged with the things he enjoys", score: 0 }
+    ]
+  },
+  {
+    text: "How would you describe his connection to the baby?",
+    options: [
+      { text: "He seems to struggle to bond — interactions feel mechanical", score: 3 },
+      { text: "He's trying but seems uncertain or overwhelmed", score: 2 },
+      { text: "The connection is building slowly — I think it's normal", score: 1 },
+      { text: "He seems naturally bonded and engaged", score: 0 }
+    ]
+  },
+  {
+    text: "Have you noticed changes in his sleep, appetite, or energy that go beyond normal new-parent exhaustion?",
+    options: [
+      { text: "Yes — he either can't sleep or sleeps excessively, and his appetite has changed significantly", score: 3 },
+      { text: "He's exhausted but it feels more intense than just tiredness", score: 2 },
+      { text: "He's tired, but that's to be expected", score: 1 },
+      { text: "Nothing beyond what I'd expect from a new parent", score: 0 }
+    ]
+  },
+  {
+    text: "Has he expressed — directly or indirectly — feeling like a failure, feeling trapped, or not recognising himself?",
+    options: [
+      { text: "Yes, he's said things that concern me — or gone very quiet in a way that does", score: 3 },
+      { text: "He's made comments that I wasn't sure how to read", score: 2 },
+      { text: "He's expressed some doubt but seems okay overall", score: 1 },
+      { text: "No, he seems to have a healthy sense of himself right now", score: 0 }
+    ]
+  },
+  {
+    text: "How long have you been noticing these changes?",
+    options: [
+      { text: "Several months — it's been building and getting harder to ignore", score: 3 },
+      { text: "A few weeks — something shifted and hasn't shifted back", score: 2 },
+      { text: "Only recently — it might still be early adjustment", score: 1 },
+      { text: "I'm not sure I've noticed significant changes", score: 0 }
+    ]
+  }
+];
+
+const results = [
+  {
+    min: 0, max: 5,
+    band: "Low Indicators",
+    title: "The signs are minimal right now.",
+    body: "Based on your responses, the indicators for paternal postpartum depression are low. What you're describing sounds more consistent with the normal — if exhausting — adjustment to new fatherhood.\n\nThat said, paternal PPD can emerge gradually, and the fact that you're paying attention matters. Trust what you observe. If things change or you feel something shift, come back.\n\n<strong>You're doing the right thing by watching closely.</strong>"
+  },
+  {
+    min: 6, max: 11,
+    band: "Some Indicators Present",
+    title: "Something is there. You were right to look.",
+    body: "Your responses suggest some indicators that are worth taking seriously. These patterns — emotional distance, irritability, withdrawal — don't always mean paternal postpartum depression, but they are recognised signs that something is happening beneath the surface.\n\nThe fact that you noticed, and that you sought a word for it, is important. <strong>Partners are often the first to see what a struggling father can't name himself.</strong>\n\nThis is the time to understand what you're looking at — before it grows."
+  },
+  {
+    min: 12, max: 17,
+    band: "Significant Indicators",
+    title: "What you're seeing has a name.",
+    body: "Based on what you've described, the pattern you're witnessing is consistent with paternal postpartum depression. The combination of emotional withdrawal, irritability, disconnection, and the duration of these changes places this beyond typical new-parent adjustment.\n\n<strong>This is not a character flaw. It is not a choice. And it is not something that resolves on its own without awareness.</strong>\n\nYou are not imagining it. You are not overreacting. What you've been feeling — that quiet dread that something is wrong — that instinct was right.\n\nThe next step is understanding what this looks like, what it means for your family, and what the path through actually is."
+  },
+  {
+    min: 18, max: 21,
+    band: "Strong Indicators",
+    title: "You already knew. Now you have a word for it.",
+    body: "What you've described reflects a strong pattern of paternal postpartum depression indicators. The emotional absence, the withdrawal, the disconnection from the baby, the duration — these are not signs of a difficult personality or a bad father. They are clinical signs of a condition that <strong>affects 1 in 10 new dads in the UK and goes unrecognised by the NHS.</strong>\n\nYou have been carrying the weight of watching someone you love disappear, without language for what you were seeing and without a system designed to help you.\n\n<strong>That changes now.</strong>\n\nThe guide below was written specifically for you — by a partner who witnessed this. It explains what paternal PPD actually looks like from the outside, what it means for your relationship and your child, and what the path through is."
+  }
+];
+
+let currentQ = 0;
+let answers = new Array(questions.length).fill(null);
+let emailSubmitted = false;
+
+function startQuiz() {
+  showScreen('screen-question');
+  renderQuestion();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('q-counter').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('progress-fill').style.width = `${((currentQ) / questions.length) * 100}%`;
+
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
+    btn.textContent = opt.text;
+    btn.onclick = () => selectAnswer(i);
+    container.appendChild(btn);
+  });
+
+  document.getElementById('btn-back').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+
+  const nextBtn = document.getElementById('btn-next');
+  if (answers[currentQ] !== null) {
+    nextBtn.classList.add('enabled');
+    nextBtn.textContent = currentQ === questions.length - 1 ? 'See My Result →' : 'Next →';
+  } else {
+    nextBtn.classList.remove('enabled');
+    nextBtn.textContent = currentQ === questions.length - 1 ? 'See My Result →' : 'Next →';
+  }
+}
+
+function selectAnswer(index) {
+  answers[currentQ] = index;
+  document.querySelectorAll('.option').forEach((btn, i) => {
+    btn.classList.toggle('selected', i === index);
+  });
+  const nextBtn = document.getElementById('btn-next');
+  nextBtn.classList.add('enabled');
+  nextBtn.textContent = currentQ === questions.length - 1 ? 'See My Result →' : 'Next →';
+}
+
+function nextQuestion() {
+  if (answers[currentQ] === null) return;
+  if (currentQ < questions.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  const totalScore = answers.reduce((sum, answerIndex, qIndex) => {
+    if (answerIndex === null) return sum;
+    return sum + questions[qIndex].options[answerIndex].score;
+  }, 0);
+
+  const result = results.find(r => totalScore >= r.min && totalScore <= r.max) || results[results.length - 1];
+
+  document.getElementById('score-text').textContent = result.band;
+  document.getElementById('result-title').textContent = result.title;
+  document.getElementById('result-body').innerHTML = result.body.replace(/\n\n/g, '<br><br>');
+
+  document.getElementById('progress-fill').style.width = '100%';
+
+  // Reset email state
+  document.getElementById('email-capture-block').style.display = 'block';
+  document.getElementById('email-form-wrap').style.display = 'block';
+  document.getElementById('email-success').style.display = 'none';
+  document.getElementById('email-input').value = '';
+  document.querySelector('.skip-link').style.display = 'block';
+  document.getElementById('next-steps').style.display = 'none';
+  const emailBtn = document.getElementById('btn-email');
+  emailBtn.disabled = false;
+  emailBtn.textContent = 'Send it to me';
+
+  showScreen('screen-result');
+}
+
+function submitEmail() {
+  const emailInput = document.getElementById('email-input');
+  const email = emailInput.value.trim();
+
+  if (!email || !email.includes('@')) {
+    emailInput.focus();
+    emailInput.style.borderColor = '#c0392b';
+    setTimeout(() => emailInput.style.borderColor = '', 1500);
+    return;
+  }
+
+  const btn = document.getElementById('btn-email');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  fetch('/.netlify/functions/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, source: 'quiz-result' })
+  })
+  .then(() => {
+    document.getElementById('email-form-wrap').style.display = 'none';
+    document.getElementById('email-success').style.display = 'block';
+    document.querySelector('.skip-link').style.display = 'none';
+    document.getElementById('next-steps').style.display = 'block';
+    emailSubmitted = true;
+  })
+  .catch(() => {
+    document.getElementById('email-form-wrap').style.display = 'none';
+    document.getElementById('email-success').style.display = 'block';
+    document.querySelector('.skip-link').style.display = 'none';
+    document.getElementById('next-steps').style.display = 'block';
+  });
+}
+
+function skipEmail() {
+  document.getElementById('email-capture-block').style.display = 'none';
+  document.querySelector('.skip-link').style.display = 'none';
+  document.getElementById('next-steps').style.display = 'block';
+}
+
+function retakeQuiz() {
+  currentQ = 0;
+  answers = new Array(questions.length).fill(null);
+  emailSubmitted = false;
+  startQuiz();
+}
+
+// Allow pressing Enter on email field
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('email-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submitEmail();
+  });
+});
+</script>
+</body>
+</html>
