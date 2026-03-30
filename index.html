@@ -3,39 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Is He Experiencing Paternal Postpartum Depression? | Parents2Be International</title>
-<meta name="description" content="A clinically validated screening tool for paternal postpartum depression. Free, anonymous, evidence-based. Used by NHS perinatal mental health services.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Paternal Postpartum Depression Assessment | Parents2Be International</title>
+<meta name="description" content="A clinically validated screening tool for paternal postpartum depression. Free, anonymous, evidence-based.">
 <style>
+  /* ── NO EXTERNAL DEPENDENCIES. FULLY SELF-CONTAINED. ── */
+
   :root {
     --black: #000000;
-    --gold: #C9A84C;
+    --gold:  #C9A84C;
     --gold-light: #e8c97a;
     --gold-dim: rgba(201,168,76,0.12);
     --white: #F5F5F5;
     --muted: rgba(245,245,245,0.5);
     --border: rgba(201,168,76,0.25);
-    --mid: #111111;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Sora', sans-serif;
-    font-weight: 300;
+  html, body {
+    background: #000;
+    color: #F5F5F5;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 16px;
     line-height: 1.6;
     min-height: 100vh;
   }
 
   /* ── PROGRESS ── */
-  #progress-bar-wrap {
+  #progress-wrap {
     position: sticky;
     top: 0;
     z-index: 100;
@@ -63,9 +58,9 @@
   }
 
   #progress-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
     color: var(--gold);
     white-space: nowrap;
     min-width: 3.5rem;
@@ -73,26 +68,29 @@
   }
 
   /* ── LAYOUT ── */
-  .container {
+  .wrap {
     max-width: 600px;
     margin: 0 auto;
     padding: 0 1.25rem 5rem;
   }
 
-  /* ── SCREEN STATES ── */
   .screen { display: none; }
-  .screen.active { display: block; }
+  .screen.active { display: block; animation: fadeUp 0.3s ease forwards; }
 
-  /* ── INTRO SCREEN ── */
-  #screen-intro { padding-top: 2.5rem; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
+  /* ── TYPOGRAPHY ── */
   .brand-line {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.6rem;
     letter-spacing: 0.22em;
     color: var(--gold);
     text-transform: uppercase;
     margin-bottom: 1.5rem;
+    padding-top: 2.5rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -105,45 +103,79 @@
     background: var(--border);
   }
 
-  .intro-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.9rem, 6.5vw, 2.8rem);
-    font-weight: 600;
-    line-height: 1.1;
+  h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    font-weight: normal;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    color: #F5F5F5;
+  }
+
+  h1 em { color: var(--gold); font-style: italic; }
+
+  h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+    font-weight: normal;
+    line-height: 1.2;
     margin-bottom: 1rem;
   }
 
-  .intro-title em { color: var(--gold); font-style: italic; }
+  h2 em { color: var(--gold); font-style: italic; }
 
-  .intro-body {
-    font-size: 0.85rem;
+  .body-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.88rem;
     color: rgba(245,245,245,0.65);
     line-height: 1.75;
     margin-bottom: 1.5rem;
-    max-width: 520px;
   }
 
-  .intro-who {
+  .mono {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ── WHO BUTTONS ── */
+  .who-label {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .who-wrap {
     display: flex;
     gap: 0.6rem;
-    flex-wrap: wrap;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
   }
 
   .who-btn {
     flex: 1;
     min-width: 140px;
-    padding: 0.9rem 1rem;
+    padding: 1rem;
     background: var(--gold-dim);
     border: 1px solid var(--border);
-    color: var(--white);
-    font-family: 'Sora', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 400;
+    color: #F5F5F5;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.82rem;
     cursor: pointer;
     transition: all 0.2s;
     text-align: center;
     border-radius: 1px;
+  }
+
+  .who-btn small {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
   }
 
   .who-btn:hover, .who-btn.selected {
@@ -152,71 +184,58 @@
     color: var(--gold);
   }
 
-  .who-btn span {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    margin-top: 0.3rem;
-  }
-
+  /* ── START BUTTON ── */
   .btn-start {
     width: 100%;
     padding: 1rem;
     background: var(--gold);
     color: #000;
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.65rem;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.2s;
     border-radius: 1px;
     display: none;
   }
 
   .btn-start:hover { background: var(--gold-light); }
-  .btn-start.visible { display: block; }
+  .btn-start.show  { display: block; }
 
+  /* ── TRUST ROW ── */
   .trust-row {
     display: flex;
-    gap: 1rem;
     flex-wrap: wrap;
+    gap: 1rem;
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
   }
 
   .trust-item {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.58rem;
     letter-spacing: 0.1em;
     color: rgba(201,168,76,0.5);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
   }
 
-  .trust-item::before {
-    content: '✓';
-    color: var(--gold);
-  }
+  .trust-item::before { content: '✓ '; color: var(--gold); }
 
   /* ── QUESTION SCREEN ── */
-  #screen-question { padding-top: 2rem; }
-
-  .q-context {
-    font-family: 'DM Mono', monospace;
+  .q-meta {
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.58rem;
     letter-spacing: 0.18em;
-    color: rgba(201,168,76,0.5);
+    color: rgba(201,168,76,0.4);
+    padding-top: 2rem;
     margin-bottom: 0.5rem;
   }
 
   .q-instruction {
-    font-size: 0.75rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.78rem;
     color: var(--muted);
     margin-bottom: 1.75rem;
     padding-bottom: 1rem;
@@ -224,10 +243,10 @@
     line-height: 1.6;
   }
 
-  .q-instruction em { color: var(--gold); font-style: normal; }
+  .q-instruction em { color: var(--gold); font-style: normal; font-weight: bold; }
 
   .q-number {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.58rem;
     letter-spacing: 0.2em;
     color: rgba(201,168,76,0.4);
@@ -235,77 +254,73 @@
   }
 
   .q-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.2rem, 4vw, 1.65rem);
-    font-weight: 600;
-    line-height: 1.25;
-    color: var(--white);
+    font-family: Georgia, serif;
+    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+    font-weight: normal;
+    line-height: 1.3;
+    color: #F5F5F5;
     margin-bottom: 2rem;
-    min-height: 3rem;
+    min-height: 2.5rem;
   }
 
-  /* ANSWER OPTIONS */
-  .options-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    margin-bottom: 2.5rem;
-  }
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 2.5rem; }
 
-  .opt-item { position: relative; }
+  .opt { position: relative; }
 
-  .opt-item input[type="radio"] {
+  .opt input {
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
+    pointer-events: none;
   }
 
-  .opt-item label {
+  .opt label {
     display: flex;
     align-items: center;
     gap: 0.9rem;
-    padding: 0.85rem 1rem;
+    padding: 0.9rem 1rem;
     border: 1px solid rgba(201,168,76,0.18);
     background: rgba(201,168,76,0.02);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s;
     border-radius: 1px;
+    user-select: none;
   }
 
   .opt-dot {
     width: 16px;
     height: 16px;
     min-width: 16px;
-    border: 1px solid rgba(201,168,76,0.35);
+    border: 1px solid rgba(201,168,76,0.4);
     border-radius: 50%;
-    transition: all 0.2s;
     position: relative;
+    transition: border-color 0.2s;
   }
 
   .opt-dot::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%,-50%) scale(0);
-    width: 8px;
-    height: 8px;
+    width: 8px; height: 8px;
     background: var(--gold);
     border-radius: 50%;
     transition: transform 0.15s ease;
   }
 
   .opt-label-text {
-    font-size: 0.82rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.84rem;
     color: rgba(245,245,245,0.7);
     line-height: 1.4;
+    flex: 1;
     transition: color 0.2s;
   }
 
   .opt-score {
-    margin-left: auto;
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.55rem;
     color: rgba(201,168,76,0.2);
     letter-spacing: 0.1em;
@@ -313,30 +328,24 @@
     white-space: nowrap;
   }
 
-  .opt-item input:checked + label {
+  .opt input:checked + label {
     border-color: var(--gold);
     background: rgba(201,168,76,0.1);
   }
 
-  .opt-item input:checked + label .opt-dot {
-    border-color: var(--gold);
-  }
+  .opt input:checked + label .opt-dot { border-color: var(--gold); }
+  .opt input:checked + label .opt-dot::after { transform: translate(-50%,-50%) scale(1); }
+  .opt input:checked + label .opt-label-text { color: #F5F5F5; }
+  .opt input:checked + label .opt-score { color: var(--gold); }
 
-  .opt-item input:checked + label .opt-dot::after {
-    transform: translate(-50%,-50%) scale(1);
-  }
-
-  .opt-item input:checked + label .opt-label-text { color: var(--white); }
-  .opt-item input:checked + label .opt-score { color: var(--gold); }
-
-  .opt-item label:hover {
+  .opt label:hover {
     border-color: rgba(201,168,76,0.4);
     background: rgba(201,168,76,0.05);
   }
 
-  .opt-item label:hover .opt-label-text { color: var(--white); }
+  .opt label:hover .opt-label-text { color: #F5F5F5; }
 
-  /* NAV */
+  /* ── NAV BUTTONS ── */
   .q-nav {
     display: flex;
     gap: 0.75rem;
@@ -349,9 +358,9 @@
     background: transparent;
     border: 1px solid var(--border);
     color: var(--muted);
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.6rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     cursor: pointer;
     transition: all 0.2s;
     border-radius: 1px;
@@ -362,12 +371,12 @@
   .btn-next {
     flex: 1;
     padding: 0.85rem;
-    background: rgba(201,168,76,0.08);
+    background: rgba(201,168,76,0.06);
     border: 1px solid var(--border);
     color: var(--muted);
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.6rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.2s;
@@ -382,28 +391,16 @@
 
   .btn-next.ready:hover { background: var(--gold-light); }
 
-  /* ── RESULTS SCREEN ── */
-  #screen-results { padding-top: 2.5rem; }
-
+  /* ── RESULTS ── */
   .result-eyebrow {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.58rem;
     letter-spacing: 0.2em;
     color: var(--gold);
+    padding-top: 2.5rem;
     margin-bottom: 1.25rem;
   }
 
-  .result-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.7rem, 5.5vw, 2.5rem);
-    font-weight: 600;
-    line-height: 1.15;
-    margin-bottom: 1rem;
-  }
-
-  .result-title em { color: var(--gold); font-style: italic; }
-
-  /* SCORE DISPLAY */
   .score-display {
     display: flex;
     align-items: center;
@@ -415,59 +412,52 @@
   }
 
   .score-number {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: Georgia, serif;
     font-size: 3.5rem;
-    font-weight: 600;
     color: var(--gold);
     line-height: 1;
     min-width: 3rem;
   }
 
-  .score-info-wrap { flex: 1; }
-
   .score-band {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.65rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     color: var(--gold);
     margin-bottom: 0.25rem;
   }
 
   .score-range {
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 0.72rem;
     color: var(--muted);
   }
 
-  /* SCORE BAR */
-  .score-bar-wrap {
-    margin: 1rem 0 1.5rem;
-  }
+  .score-bar-wrap { margin: 1rem 0 1.5rem; }
 
   .score-bar-track {
     height: 6px;
     background: rgba(201,168,76,0.1);
     border-radius: 3px;
-    position: relative;
-    overflow: visible;
     margin-bottom: 0.5rem;
+    position: relative;
   }
 
   .score-bar-fill {
     height: 100%;
     background: var(--gold);
     border-radius: 3px;
-    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+    transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
     position: relative;
   }
 
   .score-bar-fill::after {
     content: '';
     position: absolute;
-    right: -4px;
-    top: 50%;
+    right: -5px; top: 50%;
     transform: translateY(-50%);
-    width: 12px;
-    height: 12px;
+    width: 12px; height: 12px;
     background: var(--gold);
     border-radius: 50%;
     border: 2px solid #000;
@@ -476,20 +466,18 @@
   .score-bar-labels {
     display: flex;
     justify-content: space-between;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.55rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.52rem;
     color: rgba(201,168,76,0.3);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
   }
 
-  /* RESULT CONTENT */
-  .result-block {
-    margin-bottom: 1.5rem;
-  }
+  /* ── RESULT BLOCKS ── */
+  .result-block { margin-bottom: 1.75rem; }
 
   .result-block-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.58rem;
     letter-spacing: 0.18em;
     color: var(--gold);
     text-transform: uppercase;
@@ -499,32 +487,28 @@
   }
 
   .result-body {
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 0.85rem;
     color: rgba(245,245,245,0.7);
     line-height: 1.75;
   }
 
-  .result-body strong { color: var(--white); font-weight: 600; }
+  .result-body strong { color: #F5F5F5; }
+  .result-body p { margin-bottom: 0.75rem; }
 
-  /* ACTION ITEMS */
-  .action-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
+  .action-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
 
   .action-item {
     display: flex;
     gap: 0.75rem;
-    padding: 0.75rem 0.9rem;
+    padding: 0.8rem 0.9rem;
     background: rgba(201,168,76,0.04);
     border: 1px solid rgba(201,168,76,0.15);
     border-radius: 1px;
   }
 
   .action-num {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.6rem;
     color: var(--gold);
     min-width: 1.2rem;
@@ -532,42 +516,109 @@
   }
 
   .action-text {
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 0.8rem;
     color: rgba(245,245,245,0.75);
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
-  /* CRISIS BOX */
+  .action-text strong { color: #F5F5F5; }
+
+  /* ── CRISIS BOX ── */
   .crisis-box {
     background: rgba(180,60,60,0.08);
-    border: 1px solid rgba(180,60,60,0.3);
+    border: 1px solid rgba(180,60,60,0.35);
     padding: 1rem 1.1rem;
     margin: 1.5rem 0;
   }
 
-  .crisis-box-title {
-    font-family: 'DM Mono', monospace;
+  .crisis-title {
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.6rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     color: #e07070;
     margin-bottom: 0.5rem;
   }
 
   .crisis-box p {
-    font-size: 0.78rem;
-    color: rgba(245,245,245,0.65);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    color: rgba(245,245,245,0.7);
+    line-height: 1.65;
+  }
+
+  .crisis-box strong { color: #F5F5F5; }
+
+  /* ── EMAIL CAPTURE ── */
+  .email-capture {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    margin: 1.75rem 0;
+  }
+
+  .email-capture-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .email-capture p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.76rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
     line-height: 1.6;
   }
 
-  .crisis-box strong { color: var(--white); }
+  .email-row { display: flex; gap: 0.5rem; }
 
-  /* CTA BUTTONS */
-  .cta-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    margin-top: 2rem;
+  .email-input {
+    flex: 1;
+    padding: 0.8rem 0.9rem;
+    background: rgba(201,168,76,0.03);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: #F5F5F5;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.82rem;
+    outline: none;
+    border-radius: 1px;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
   }
+
+  .email-input:focus { border-color: var(--gold); }
+  .email-input::placeholder { color: rgba(245,245,245,0.2); }
+
+  .email-submit {
+    padding: 0.8rem 1.1rem;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    border-radius: 1px;
+    -webkit-appearance: none;
+  }
+
+  .email-submit:hover { background: var(--gold-light); }
+
+  .privacy-note {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.62rem;
+    color: rgba(245,245,245,0.22);
+    margin-top: 0.65rem;
+    line-height: 1.5;
+  }
+
+  /* ── CTA BUTTONS ── */
+  .cta-stack { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 2rem; }
 
   .cta-primary {
     display: block;
@@ -576,15 +627,12 @@
     color: #000;
     text-decoration: none;
     text-align: center;
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.65rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.2s;
     border-radius: 1px;
-    width: 100%;
   }
 
   .cta-primary:hover { background: var(--gold-light); }
@@ -594,97 +642,33 @@
     padding: 0.85rem;
     background: transparent;
     border: 1px solid var(--border);
-    color: rgba(245,245,245,0.6);
+    color: rgba(245,245,245,0.55);
     text-decoration: none;
     text-align: center;
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.6rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    cursor: pointer;
     transition: all 0.2s;
     border-radius: 1px;
   }
 
   .cta-secondary:hover { border-color: var(--gold); color: var(--gold); }
 
-  /* EMAIL CAPTURE */
-  .email-capture {
-    background: rgba(201,168,76,0.05);
-    border: 1px solid var(--border);
-    padding: 1.25rem;
-    margin: 1.5rem 0;
-  }
-
-  .email-capture-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.18em;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-  }
-
-  .email-capture p {
-    font-size: 0.75rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
-    line-height: 1.6;
-  }
-
-  .email-row {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .email-input {
-    flex: 1;
-    padding: 0.75rem 0.85rem;
-    background: rgba(201,168,76,0.03);
-    border: 1px solid rgba(201,168,76,0.2);
-    color: var(--white);
-    font-family: 'Sora', sans-serif;
-    font-size: 0.8rem;
-    outline: none;
-    border-radius: 1px;
-    transition: border-color 0.2s;
-  }
-
-  .email-input:focus { border-color: var(--gold); }
-  .email-input::placeholder { color: rgba(245,245,245,0.2); }
-
-  .email-submit {
-    padding: 0.75rem 1rem;
-    background: var(--gold);
-    color: #000;
-    border: none;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-    border-radius: 1px;
-  }
-
-  .email-submit:hover { background: var(--gold-light); }
-
-  .privacy-note {
-    font-size: 0.6rem;
-    color: rgba(245,245,245,0.25);
-    margin-top: 0.6rem;
-    line-height: 1.5;
-  }
-
+  /* ── DISCLAIMER ── */
   .disclaimer {
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 0.65rem;
-    color: rgba(245,245,245,0.25);
-    line-height: 1.6;
+    color: rgba(245,245,245,0.22);
+    line-height: 1.65;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(201,168,76,0.1);
     margin-top: 2rem;
   }
 
-  /* FOOTER */
+  .disclaimer strong { color: rgba(245,245,245,0.5); }
+
+  /* ── FOOTER ── */
   footer {
     max-width: 600px;
     margin: 0 auto;
@@ -697,528 +681,517 @@
   }
 
   footer span {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 0.55rem;
     letter-spacing: 0.1em;
     color: rgba(201,168,76,0.3);
   }
 
-  /* ANIMATION */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .partner-note {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 0.82rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
   }
 
-  .fade-in { animation: fadeUp 0.35s ease forwards; }
+  hr.dim {
+    border: none;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    margin: 1.5rem 0;
+  }
 </style>
 </head>
 <body>
 
-<!-- PROGRESS BAR -->
-<div id="progress-bar-wrap">
+<!-- PROGRESS -->
+<div id="progress-wrap">
   <div id="progress-track"><div id="progress-fill"></div></div>
   <div id="progress-label">0 / 13</div>
 </div>
 
-<!-- ═══════════════════ INTRO SCREEN ═══════════════════ -->
-<div class="container">
-<div id="screen-intro" class="screen active fade-in">
+<div class="wrap">
 
-  <div class="brand-line">Parents2Be International</div>
+  <!-- ══════════════ INTRO ══════════════ -->
+  <div id="screen-intro" class="screen active">
+    <div class="brand-line">Parents2Be International</div>
 
-  <h1 class="intro-title">
-    Is He Experiencing<br>
-    Paternal Postpartum<br>
-    <em>Depression?</em>
-  </h1>
+    <h1>Is He Experiencing<br>Paternal Postpartum<br><em>Depression?</em></h1>
 
-  <p class="intro-body">
-    1 in 10 new fathers experience postnatal depression. Over 80% go undiagnosed.
-    Not because it's rare — because nobody checks.<br><br>
-    This assessment uses the <strong style="color:var(--white)">Gotland Male Depression Scale</strong> —
-    a clinically validated screening tool specifically designed to detect depression
-    in men, whose symptoms present differently from women. It takes under 3 minutes.
-    Your responses are not stored.
-  </p>
+    <p class="body-text">
+      1 in 10 new fathers experience postnatal depression. Over 80% go undiagnosed —
+      not because it is rare, but because nobody checks.<br><br>
+      This assessment uses the <strong style="color:#F5F5F5">Gotland Male Depression Scale</strong>,
+      a clinically validated instrument specifically designed to detect depression in men,
+      whose symptoms present differently from women. It takes under 3 minutes.
+      Your responses are not stored.
+    </p>
 
-  <p style="font-size:0.78rem;color:var(--gold);margin-bottom:1rem;font-family:'DM Mono',monospace;letter-spacing:0.1em;">WHO IS COMPLETING THIS?</p>
+    <p class="who-label">WHO IS COMPLETING THIS?</p>
 
-  <div class="intro-who">
-    <button class="who-btn" id="btn-partner" onclick="selectWho('partner')">
-      I am his partner
-      <span>Answering about what I've observed</span>
+    <div class="who-wrap">
+      <button class="who-btn" id="btn-partner" onclick="selectWho('partner')">
+        I am his partner
+        <small>Answering about what I have observed</small>
+      </button>
+      <button class="who-btn" id="btn-father" onclick="selectWho('father')">
+        I am the father
+        <small>Answering about my own experience</small>
+      </button>
+    </div>
+
+    <button class="btn-start" id="btn-start" onclick="startAssessment()">
+      Begin Assessment &rarr;
     </button>
-    <button class="who-btn" id="btn-father" onclick="selectWho('father')">
-      I am the father
-      <span>Answering about my own experience</span>
-    </button>
-  </div>
 
-  <button class="btn-start" id="btn-start" onclick="startAssessment()">
-    Begin Assessment →
-  </button>
-
-  <div class="trust-row">
-    <div class="trust-item">Anonymous — no data stored</div>
-    <div class="trust-item">Clinically validated scale</div>
-    <div class="trust-item">Under 3 minutes</div>
-    <div class="trust-item">UK-focused</div>
-  </div>
-
-</div>
-
-<!-- ═══════════════════ QUESTION SCREEN ═══════════════════ -->
-<div id="screen-question" class="screen">
-
-  <div class="q-context">GOTLAND MALE DEPRESSION SCALE · PARENTS2BE.INTL</div>
-
-  <p class="q-instruction" id="q-instruction">
-    Think about the last two weeks. For each statement, choose the response that best
-    describes how <em id="instruction-subject">he has been</em>.
-  </p>
-
-  <div class="q-number" id="q-number">QUESTION 1 OF 13</div>
-  <div class="q-text" id="q-text"></div>
-
-  <div class="options-list" id="options-list"></div>
-
-  <div class="q-nav">
-    <button class="btn-back" id="btn-back" onclick="prevQuestion()">← Back</button>
-    <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next →</button>
-  </div>
-
-</div>
-
-<!-- ═══════════════════ RESULTS SCREEN ═══════════════════ -->
-<div id="screen-results" class="screen">
-
-  <div class="result-eyebrow" id="result-eyebrow">ASSESSMENT COMPLETE · PARENTS2BE.INTL</div>
-
-  <h2 class="result-title" id="result-title"></h2>
-
-  <div class="score-display">
-    <div class="score-number" id="score-number">0</div>
-    <div class="score-info-wrap">
-      <div class="score-band" id="score-band"></div>
-      <div class="score-range" id="score-range"></div>
+    <div class="trust-row">
+      <span class="trust-item">Anonymous — no data stored</span>
+      <span class="trust-item">Clinically validated</span>
+      <span class="trust-item">Under 3 minutes</span>
+      <span class="trust-item">UK-focused</span>
     </div>
   </div>
 
-  <div class="score-bar-wrap">
-    <div class="score-bar-track">
-      <div class="score-bar-fill" id="score-bar-fill" style="width:0%"></div>
-    </div>
-    <div class="score-bar-labels">
-      <span>0 — No indication</span>
-      <span>13 — Probable</span>
-      <span>27 — Significant</span>
-      <span>39</span>
+  <!-- ══════════════ QUESTION ══════════════ -->
+  <div id="screen-question" class="screen">
+    <div class="q-meta">GOTLAND MALE DEPRESSION SCALE &middot; PARENTS2BE.INTL</div>
+    <p class="q-instruction">
+      Think about the last two weeks. For each statement, choose the response
+      that best describes how <em id="instr-subject">he has been</em>.
+    </p>
+    <div class="q-number" id="q-number">QUESTION 1 OF 13</div>
+    <div class="q-text" id="q-text"></div>
+    <div class="options" id="options"></div>
+    <div class="q-nav">
+      <button class="btn-back" id="btn-back" onclick="prevQ()">&#8592; Back</button>
+      <button class="btn-next" id="btn-next" onclick="nextQ()">Next &rarr;</button>
     </div>
   </div>
 
-  <!-- DYNAMIC RESULT CONTENT -->
-  <div id="result-content"></div>
+  <!-- ══════════════ RESULTS ══════════════ -->
+  <div id="screen-results" class="screen">
+    <div class="result-eyebrow">ASSESSMENT COMPLETE &middot; PARENTS2BE.INTL</div>
+    <h2 id="result-title"></h2>
 
-  <!-- EMAIL CAPTURE -->
-  <div class="email-capture">
-    <div class="email-capture-title">RECEIVE YOUR FREE GUIDE</div>
-    <p id="email-capture-desc">Enter your email and we'll send you the appropriate free guide based on your results — plus what to do next.</p>
-    <div class="email-row">
-      <input type="email" class="email-input" id="email-input" placeholder="Your email address">
-      <button class="email-submit" onclick="submitEmail()">Send →</button>
+    <div class="score-display">
+      <div class="score-number" id="score-number">0</div>
+      <div>
+        <div class="score-band" id="score-band"></div>
+        <div class="score-range" id="score-range"></div>
+      </div>
     </div>
-    <p class="privacy-note">Your email is used only to send your guide. Your assessment responses are never linked to your email. Unsubscribe anytime.</p>
+
+    <div class="score-bar-wrap">
+      <div class="score-bar-track">
+        <div class="score-bar-fill" id="score-bar-fill"></div>
+      </div>
+      <div class="score-bar-labels">
+        <span>0 &mdash; None</span>
+        <span>13 &mdash; Probable</span>
+        <span>27 &mdash; Significant</span>
+        <span>39</span>
+      </div>
+    </div>
+
+    <div id="result-content"></div>
+
+    <!-- EMAIL CAPTURE -->
+    <div class="email-capture" id="email-capture">
+      <div class="email-capture-title">RECEIVE YOUR FREE GUIDE</div>
+      <p id="email-desc">Enter your email and we will send you the free guide based on your results.</p>
+      <div class="email-row">
+        <input type="email" class="email-input" id="email-input" placeholder="Your email address">
+        <button class="email-submit" id="email-submit-btn" onclick="submitEmail()">Send &rarr;</button>
+      </div>
+      <p class="privacy-note">Your email is used only to send your guide. Assessment responses are never linked to your email. Unsubscribe anytime.</p>
+    </div>
+
+    <div class="cta-stack" id="cta-stack"></div>
+
+    <p class="disclaimer">
+      This assessment is for informational purposes only and does not constitute a clinical diagnosis.
+      The Gotland Male Depression Scale (Zierau et al., 2002) is a validated screening instrument.
+      A positive screen indicates that professional assessment is warranted &mdash; not that a diagnosis has been made.
+      If you are concerned about immediate safety, contact your GP or call the Samaritans on
+      <strong>116 123</strong> (free, 24/7).
+    </p>
   </div>
 
-  <!-- CTA STACK -->
-  <div class="cta-stack" id="cta-stack"></div>
-
-  <div class="disclaimer">
-    This assessment is for informational purposes only and does not constitute a clinical diagnosis.
-    The Gotland Male Depression Scale (Zierau et al., 2002) is a validated screening instrument.
-    A positive screen indicates that professional assessment is warranted — not that a diagnosis has been made.
-    If you are concerned about immediate safety, contact your GP or call the Samaritans on <strong style="color:var(--white)">116 123</strong> (free, 24/7).
-  </div>
-
-</div>
-</div><!-- end container -->
+</div><!-- end wrap -->
 
 <footer>
-  <span>© Parents2Be International</span>
-  <span>Evidence-Based · Anonymous · UK-Focused</span>
+  <span>&copy; Parents2Be International</span>
+  <span>Evidence-Based &middot; Anonymous &middot; UK-Focused</span>
   <span>parents2beintl.com</span>
 </footer>
 
-<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
 <script>
-// ── STATE ────────────────────────────────────────────────────────────────────
-let whoIs = null;          // 'father' | 'partner'
-let currentQ = 0;
-let answers  = new Array(13).fill(null);
+// ── STATE ─────────────────────────────────────────────────────────────────────
+var whoIs   = null;
+var currentQ = 0;
+var answers  = [null,null,null,null,null,null,null,null,null,null,null,null,null];
 
-// ── QUESTIONS (Gotland Male Depression Scale, Zierau et al. 2002) ────────────
-// Each question has father-voice and partner-voice variants.
-// Scores: 0 = Not at all | 1 = To some extent | 2 = Very true | 3 = Extremely so
-// Total range 0–39. Bands: 0–12 no indication, 13–26 probable, 27–39 significant.
-
-const QUESTIONS = [
+// ── QUESTIONS (Gotland Male Depression Scale, Zierau et al. 2002) ─────────────
+var QUESTIONS = [
   {
-    father:  "I have a lower stress threshold than usual — I feel more stressed out than normal.",
-    partner: "He seems to have a lower stress threshold than usual — he appears more stressed out than normal.",
+    f: "I have a lower stress threshold than usual — I feel more stressed out than normal.",
+    p: "He seems to have a lower stress threshold than usual — he appears more stressed out than normal."
   },
   {
-    father:  "I have been more aggressive, reactive, and I find it harder to control myself.",
-    partner: "He has been more aggressive, outward-reacting, and appears to have difficulty keeping himself in control.",
+    f: "I have been more aggressive, reactive, and I find it harder to control myself.",
+    p: "He has been more aggressive, outward-reacting, and appears to have difficulty keeping himself in control."
   },
   {
-    father:  "I have a feeling of being burned out and empty inside.",
-    partner: "He seems to have a feeling of being burned out and empty.",
+    f: "I have a feeling of being burned out and empty inside.",
+    p: "He seems to have a feeling of being burned out and empty inside."
   },
   {
-    father:  "I have been experiencing a constant, inexplicable tiredness.",
-    partner: "He has been experiencing what seems like a constant, inexplicable tiredness.",
+    f: "I have been experiencing a constant, inexplicable tiredness.",
+    p: "He has been experiencing what seems like a constant, inexplicable tiredness."
   },
   {
-    father:  "I have been more irritable, restless, and frustrated than usual.",
-    partner: "He has been more irritable, restless, and frustrated than usual.",
+    f: "I have been more irritable, restless, and frustrated than usual.",
+    p: "He has been more irritable, restless, and frustrated than usual."
   },
   {
-    father:  "I am finding it difficult to make ordinary, everyday decisions.",
-    partner: "He seems to have difficulty making ordinary, everyday decisions.",
+    f: "I am finding it difficult to make ordinary, everyday decisions.",
+    p: "He seems to have difficulty making ordinary, everyday decisions."
   },
   {
-    father:  "I have had sleep problems — sleeping too much or too little, sleeping restlessly, difficulty falling asleep, or waking up too early.",
-    partner: "He has had sleep problems — sleeping too much or too little, sleeping restlessly, difficulty falling asleep, or waking up too early.",
+    f: "I have had sleep problems — sleeping too much or too little, restlessly, difficulty falling asleep, or waking too early.",
+    p: "He has had sleep problems — sleeping too much or too little, restlessly, difficulty falling asleep, or waking too early."
   },
   {
-    father:  "In the morning especially, I have a feeling of disquiet, anxiety, or uneasiness.",
-    partner: "In the morning especially, he seems to have a feeling of disquiet, anxiety, or uneasiness.",
+    f: "In the morning especially, I have a feeling of disquiet, anxiety, or uneasiness.",
+    p: "In the morning especially, he seems to have a feeling of disquiet, anxiety, or uneasiness."
   },
   {
-    father:  "I have been over-consuming alcohol or using pills to achieve a calming effect — or being hyperactive or 'blowing off steam' through overworking, excessive exercise, or under/overeating.",
-    partner: "He has been over-consuming alcohol or using something to achieve a calming effect — or being hyperactive, overworking, exercising excessively, or significantly under/overeating.",
+    f: "I have been over-consuming alcohol or using something to achieve a calming effect — or being hyperactive, overworking, exercising excessively, or significantly under or overeating.",
+    p: "He has been over-consuming alcohol or using something to achieve a calming effect — or being hyperactive, overworking, exercising excessively, or significantly under or overeating."
   },
   {
-    father:  "I feel my behaviour has changed in ways that neither I nor others can fully recognise — I feel difficult to be around.",
-    partner: "His behaviour has changed in ways that neither he nor others can recognise — he seems difficult to deal with.",
+    f: "I feel my behaviour has changed in ways that neither I nor others can fully recognise — I feel difficult to be around.",
+    p: "His behaviour has changed in ways that neither he nor others can recognise — he seems difficult to deal with."
   },
   {
-    father:  "I have felt gloomy, negative, or as though everything looks bleak and hopeless.",
-    partner: "He has seemed gloomy, negative, or characterised by hopelessness — as though everything looks bleak.",
+    f: "I have felt gloomy, negative, or as though everything looks bleak and hopeless.",
+    p: "He has seemed gloomy, negative, or characterised by hopelessness — as though everything looks bleak."
   },
   {
-    father:  "I have noticed in myself a tendency toward self-pity, complaining, or feeling 'pathetic'.",
-    partner: "He has shown a tendency toward self-pity, complaining, or seeming unusually 'pathetic' or low.",
+    f: "I have noticed in myself a tendency toward self-pity, complaining, or feeling pathetic.",
+    p: "He has shown a tendency toward self-pity, complaining, or seeming unusually low or pathetic."
   },
   {
-    father:  "In my biological family, is there any tendency toward abuse, depression, low moods, suicide attempts, or risk-taking behaviour?",
-    partner: "In his biological family, is there any tendency toward abuse, depression, low moods, suicide attempts, or risk-taking behaviour?",
-  },
+    f: "In my biological family, is there any tendency toward abuse, depression, low moods, suicide attempts, or risk-taking behaviour?",
+    p: "In his biological family, is there any tendency toward abuse, depression, low moods, suicide attempts, or risk-taking behaviour?"
+  }
 ];
 
-const ANSWER_LABELS = [
-  { label: "Not at all",   score: 0 },
+var OPTS = [
+  { label: "Not at all",    score: 0 },
   { label: "To some extent", score: 1 },
-  { label: "Very true",    score: 2 },
-  { label: "Extremely so", score: 3 },
+  { label: "Very true",     score: 2 },
+  { label: "Extremely so",  score: 3 }
 ];
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function showScreen(id) {
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++) {
+    screens[i].classList.remove('active');
+  }
+  var t = document.getElementById(id);
+  t.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function setProgress(n) {
+  var pct = n <= 0 ? 0 : Math.round((n / 13) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = (n < 0 ? 0 : n) + ' / 13';
+}
 
 // ── WHO SELECTION ─────────────────────────────────────────────────────────────
 function selectWho(who) {
   whoIs = who;
   document.getElementById('btn-father').classList.toggle('selected', who === 'father');
   document.getElementById('btn-partner').classList.toggle('selected', who === 'partner');
-  document.getElementById('btn-start').classList.add('visible');
-
-  const instr = document.getElementById('instruction-subject');
-  instr.textContent = who === 'father' ? 'you have been' : 'he has been';
+  document.getElementById('btn-start').classList.add('show');
+  document.getElementById('instr-subject').textContent =
+    who === 'father' ? 'you have been' : 'he has been';
 }
 
 // ── START ─────────────────────────────────────────────────────────────────────
 function startAssessment() {
   if (!whoIs) return;
   showScreen('screen-question');
-  renderQuestion(0);
-  updateProgress(0);
+  renderQ(0);
+  setProgress(0);
 }
 
 // ── RENDER QUESTION ───────────────────────────────────────────────────────────
-function renderQuestion(index) {
+function renderQ(index) {
   currentQ = index;
-  const q = QUESTIONS[index];
-  const qText = whoIs === 'father' ? q.father : q.partner;
+  var q    = QUESTIONS[index];
+  var text = whoIs === 'father' ? q.f : q.p;
 
-  document.getElementById('q-number').textContent = `QUESTION ${index + 1} OF 13`;
-  document.getElementById('q-text').textContent    = qText;
+  document.getElementById('q-number').textContent = 'QUESTION ' + (index + 1) + ' OF 13';
+  document.getElementById('q-text').textContent   = text;
 
-  const list = document.getElementById('options-list');
+  var list = document.getElementById('options');
   list.innerHTML = '';
 
-  ANSWER_LABELS.forEach((opt, i) => {
-    const item = document.createElement('div');
-    item.className = 'opt-item';
+  OPTS.forEach(function(opt, i) {
+    var div   = document.createElement('div');
+    div.className = 'opt';
 
-    const id = `opt-${index}-${i}`;
-    const checked = answers[index] === opt.score ? 'checked' : '';
+    var id    = 'opt-' + index + '-' + i;
+    var input = document.createElement('input');
+    input.type    = 'radio';
+    input.name    = 'q' + index;
+    input.id      = id;
+    input.value   = opt.score;
+    if (answers[index] === opt.score) input.checked = true;
 
-    item.innerHTML = `
-      <input type="radio" name="q${index}" id="${id}" value="${opt.score}" ${checked}>
-      <label for="${id}">
-        <span class="opt-dot"></span>
-        <span class="opt-label-text">${opt.label}</span>
-        <span class="opt-score">${opt.score}/3</span>
-      </label>
-    `;
+    var label = document.createElement('label');
+    label.htmlFor = id;
 
-    item.querySelector('input').addEventListener('change', (e) => {
-      answers[index] = parseInt(e.target.value);
-      document.getElementById('btn-next').classList.add('ready');
-      if (index < 12) {
-        document.getElementById('btn-next').textContent = 'Next →';
-      } else {
-        document.getElementById('btn-next').textContent = 'See Results →';
-      }
+    var dot  = document.createElement('span');
+    dot.className = 'opt-dot';
+
+    var txt  = document.createElement('span');
+    txt.className   = 'opt-label-text';
+    txt.textContent = opt.label;
+
+    var sc   = document.createElement('span');
+    sc.className   = 'opt-score';
+    sc.textContent = opt.score + '/3';
+
+    label.appendChild(dot);
+    label.appendChild(txt);
+    label.appendChild(sc);
+    div.appendChild(input);
+    div.appendChild(label);
+    list.appendChild(div);
+
+    input.addEventListener('change', function() {
+      answers[index] = parseInt(this.value);
+      var nb = document.getElementById('btn-next');
+      nb.classList.add('ready');
+      nb.textContent = index < 12 ? 'Next \u2192' : 'See Results \u2192';
     });
-
-    list.appendChild(item);
   });
 
-  // Back button
-  document.getElementById('btn-back').style.display = index === 0 ? 'none' : 'block';
+  // Back
+  var back = document.getElementById('btn-back');
+  back.style.display = index === 0 ? 'none' : 'block';
 
-  // Next button state
-  const nextBtn = document.getElementById('btn-next');
-  nextBtn.classList.toggle('ready', answers[index] !== null);
-  nextBtn.textContent = index < 12 ? 'Next →' : 'See Results →';
+  // Next state
+  var nb = document.getElementById('btn-next');
+  nb.classList.toggle('ready', answers[index] !== null);
+  nb.textContent = index < 12 ? 'Next \u2192' : 'See Results \u2192';
 
-  updateProgress(index);
-
-  document.querySelector('.container').scrollTo?.(0,0);
-  window.scrollTo(0,0);
+  setProgress(index);
+  window.scrollTo(0, 0);
 }
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
-function nextQuestion() {
+function nextQ() {
   if (answers[currentQ] === null) return;
   if (currentQ < 12) {
-    renderQuestion(currentQ + 1);
+    renderQ(currentQ + 1);
   } else {
     showResults();
   }
 }
 
-function prevQuestion() {
-  if (currentQ > 0) renderQuestion(currentQ - 1);
-  else {
+function prevQ() {
+  if (currentQ > 0) {
+    renderQ(currentQ - 1);
+  } else {
     showScreen('screen-intro');
-    updateProgress(-1);
+    setProgress(-1);
   }
 }
 
-// ── PROGRESS ─────────────────────────────────────────────────────────────────
-function updateProgress(qIndex) {
-  const pct = qIndex < 0 ? 0 : (qIndex / 13) * 100;
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-label').textContent =
-    qIndex < 0 ? '0 / 13' : `${qIndex} / 13`;
-}
-
-// ── SHOW SCREEN ───────────────────────────────────────────────────────────────
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById(id);
-  target.classList.add('active');
-  target.classList.remove('fade-in');
-  void target.offsetWidth;
-  target.classList.add('fade-in');
-  window.scrollTo(0,0);
-}
-
-// ── CALCULATE & SHOW RESULTS ──────────────────────────────────────────────────
+// ── RESULTS ───────────────────────────────────────────────────────────────────
 function showResults() {
-  const total = answers.reduce((sum, v) => sum + (v || 0), 0);
-  const pct   = (total / 39) * 100;
+  var total = 0;
+  for (var i = 0; i < answers.length; i++) {
+    total += (answers[i] || 0);
+  }
+  var pct = Math.min((total / 39) * 100, 100);
 
-  // Score band
-  let band, bandLabel, resultTitle, resultContent, ctaHTML;
+  var isPartner = whoIs === 'partner';
+  var he   = isPartner ? 'he'  : 'you';
+  var his  = isPartner ? 'his' : 'your';
+  var him  = isPartner ? 'him' : 'you';
+  var heis = isPartner ? 'he is' : 'you are';
+  var hes  = isPartner ? "he's" : "you're";
 
-  const subjectHe   = whoIs === 'partner' ? 'he' : 'you';
-  const subjectHis  = whoIs === 'partner' ? 'his' : 'your';
-  const subjectHim  = whoIs === 'partner' ? 'him' : 'you';
-  const partnerNote = whoIs === 'partner'
-    ? 'You completed this assessment on behalf of your partner. What you\'ve observed matters — partners are often the first and only people to notice.'
+  var pNote = isPartner
+    ? '<p class="partner-note">You completed this on behalf of your partner. What you have observed matters — partners are often the first and only people to notice.</p>'
     : '';
+
+  var band, bandLabel, titleHTML, contentHTML, ctaHTML;
 
   if (total <= 12) {
     band      = 'NO SIGNIFICANT INDICATION';
-    bandLabel = 'Score 0–12: No significant indication of depression at this time';
-    resultTitle = `At This Score, <em>No Significant Indication</em> Is Present.`;
+    bandLabel = 'Score 0\u201312: No significant indication of depression at this time';
+    titleHTML = 'At This Score, <em>No Significant Indication</em> Is Present.';
 
-    resultContent = `
-      <div class="result-block">
-        <div class="result-block-title">WHAT THIS MEANS</div>
-        <div class="result-body">
-          ${partnerNote ? `<p style="margin-bottom:0.75rem;color:var(--gold);font-style:italic;">${partnerNote}</p>` : ''}
-          <p>A score of <strong>${total}</strong> out of 39 does not currently indicate a significant level of depression. This is a positive result — it suggests that ${subjectHe} ${subjectHe === 'you' ? 'are' : 'is'} not showing the pattern of symptoms associated with paternal postpartum depression at this time.</p>
-          <br>
-          <p>However, symptoms can emerge or worsen over the first 12 months postpartum. It is worth returning to this assessment in 4–6 weeks, or sooner if things change.</p>
-        </div>
-      </div>
+    contentHTML =
+      '<div class="result-block">' +
+        '<div class="result-block-title">WHAT THIS MEANS</div>' +
+        '<div class="result-body">' +
+          pNote +
+          '<p>A score of <strong>' + total + '</strong> out of 39 does not currently indicate a significant level of depression. ' +
+          'This is a positive result. It suggests that ' + he + ' ' + (he === 'you' ? 'are' : 'is') + ' not showing the pattern of symptoms associated with paternal postpartum depression right now.</p>' +
+          '<p>Symptoms can emerge or worsen over the first 12 months postpartum. It is worth returning to this assessment in 4\u20136 weeks, or sooner if things change.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="result-block">' +
+        '<div class="result-block-title">WHAT TO DO NOW</div>' +
+        '<div class="action-list">' +
+          '<div class="action-item"><span class="action-num">01</span><span class="action-text">Download the free 7 Signs guide \u2014 understand what to watch for even when things seem okay right now.</span></div>' +
+          '<div class="action-item"><span class="action-num">02</span><span class="action-text">Revisit this assessment in 4\u20136 weeks. Paternal PPD often peaks between 3 and 6 months postpartum.</span></div>' +
+          '<div class="action-item"><span class="action-num">03</span><span class="action-text">If ' + his + ' mood or behaviour changes significantly, take the assessment again or speak to a GP.</span></div>' +
+        '</div>' +
+      '</div>';
 
-      <div class="result-block">
-        <div class="result-block-title">WHAT TO DO NOW</div>
-        <div class="action-list">
-          <div class="action-item"><span class="action-num">01</span><span class="action-text">Download the free 7 Signs guide — understand what to watch for, even when things seem okay right now.</span></div>
-          <div class="action-item"><span class="action-num">02</span><span class="action-text">Revisit this assessment in 4–6 weeks. Paternal PPD often peaks between 3 and 6 months postpartum.</span></div>
-          <div class="action-item"><span class="action-num">03</span><span class="action-text">If ${subjectHis} mood or behaviour changes significantly, take the assessment again — or speak to a GP.</span></div>
-        </div>
-      </div>
-    `;
-
-    ctaHTML = `
-      <a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide: The 7 Signs →</a>
-      <a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>
-    `;
+    ctaHTML =
+      '<a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide: The 7 Signs &rarr;</a>' +
+      '<a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>';
 
   } else if (total <= 26) {
     band      = 'PROBABLE DEPRESSION';
-    bandLabel = 'Score 13–26: Probable depression — professional assessment is recommended';
-    resultTitle = `This Score Indicates <em>Probable Depression.</em>`;
+    bandLabel = 'Score 13\u201326: Probable depression \u2014 professional assessment is recommended';
+    titleHTML = 'This Score Indicates <em>Probable Depression.</em>';
 
-    resultContent = `
-      <div class="result-block">
-        <div class="result-block-title">WHAT THIS MEANS</div>
-        <div class="result-body">
-          ${partnerNote ? `<p style="margin-bottom:0.75rem;color:var(--gold);font-style:italic;">${partnerNote}</p>` : ''}
-          <p>A score of <strong>${total}</strong> out of 39 falls in the range that clinically indicates <strong>probable depression</strong>. According to the validated Gotland Male Depression Scale, a score in this range warrants further professional assessment and should be taken seriously.</p>
-          <br>
-          <p>This does not mean ${subjectHe} ${subjectHe === 'you' ? 'are' : 'is'} broken, failing, or a bad parent. It means ${subjectHis} brain and body are struggling under conditions — hormonal, sleep-related, identity-related — that are genuinely hard. This is clinical. It has a name. It is treatable.</p>
-          <br>
-          <p>The most important thing right now is to take one concrete step. That step is a conversation with a GP.</p>
-        </div>
-      </div>
+    contentHTML =
+      '<div class="result-block">' +
+        '<div class="result-block-title">WHAT THIS MEANS</div>' +
+        '<div class="result-body">' +
+          pNote +
+          '<p>A score of <strong>' + total + '</strong> out of 39 falls in the range that clinically indicates <strong>probable depression</strong>. ' +
+          'According to the validated Gotland Male Depression Scale, this score warrants professional assessment and should not be ignored.</p>' +
+          '<p>This does not mean ' + he + ' ' + (he === 'you' ? 'are' : 'is') + ' broken or failing. It means ' + his + ' brain and body are struggling under conditions \u2014 hormonal, sleep-related, identity-related \u2014 that are genuinely hard. This is clinical. It has a name. It is treatable.</p>' +
+          '<p>The most important step right now is a conversation with a GP.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="result-block">' +
+        '<div class="result-block-title">WHAT TO DO NOW \u2014 IN ORDER</div>' +
+        '<div class="action-list">' +
+          '<div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Book a GP appointment this week.</strong> The words to use: "I have been struggling since the baby was born and I need to talk about my mental health." Those exact words are enough.</span></div>' +
+          '<div class="action-item"><span class="action-num">02</span><span class="action-text">Download the free guide \u2014 it explains what is happening biologically and gives ' + him + ' language to describe it to a clinician.</span></div>' +
+          '<div class="action-item"><span class="action-num">03</span><span class="action-text">If ' + hes + ' not ready for the GP yet, read the guide tonight. Then share it with one person ' + (he === 'you' ? 'you trust' : 'he trusts') + '.</span></div>' +
+          '<div class="action-item"><span class="action-num">04</span><span class="action-text">Consider The New Father\'s Postpartum Code \u2014 a structured framework for the next 90 days available at parents2beintl.com.</span></div>' +
+        '</div>' +
+      '</div>';
 
-      <div class="result-block">
-        <div class="result-block-title">WHAT TO DO NOW — IN ORDER</div>
-        <div class="action-list">
-          <div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Book a GP appointment this week.</strong> Say: "I've been struggling since the baby was born and I need to talk about my mental health." Those exact words are enough. A GP has heard them before.</span></div>
-          <div class="action-item"><span class="action-num">02</span><span class="action-text">Download our free guide — it explains what is happening biologically and gives ${subjectHim} language to describe it to a clinician.</span></div>
-          <div class="action-item"><span class="action-num">03</span><span class="action-text">If ${subjectHe === 'you' ? "you're" : "he's"} not ready for the GP yet, read the guide tonight. Then share it with one person ${subjectHe === 'you' ? 'you trust' : 'he trusts'}.</span></div>
-          <div class="action-item"><span class="action-num">04</span><span class="action-text">Consider our full support guide — <em>The New Father's Postpartum Code</em> — which provides a structured framework for the next 90 days.</span></div>
-        </div>
-      </div>
-    `;
-
-    ctaHTML = `
-      <a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide: The 7 Signs →</a>
-      <a href="https://parents2beintl.com/paid-guide" class="cta-secondary">The New Father's Postpartum Code (£47) →</a>
-      <a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>
-    `;
+    ctaHTML =
+      '<a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide: The 7 Signs &rarr;</a>' +
+      '<a href="https://parents2beintl.com" class="cta-secondary">The New Father\'s Postpartum Code (&pound;47) &rarr;</a>' +
+      '<a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>';
 
   } else {
-    band      = 'SIGNIFICANT — ACT NOW';
-    bandLabel = 'Score 27–39: Significant depression — professional support is needed';
-    resultTitle = `This Score Is <em>Significant.</em> Please Act Today.`;
+    band      = 'SIGNIFICANT \u2014 ACT TODAY';
+    bandLabel = 'Score 27\u201339: Significant depression \u2014 professional support is needed now';
+    titleHTML = 'This Score Is <em>Significant.</em> Please Act Today.';
 
-    resultContent = `
-      <div class="crisis-box">
-        <div class="crisis-box-title">⚠ IMMEDIATE SUPPORT AVAILABLE</div>
-        <p>If there are any thoughts of self-harm or not wanting to be here, please stop reading and contact support now.<br><br>
-        <strong>Samaritans: 116 123</strong> (free, 24/7, no judgement)<br>
-        <strong>NHS 111</strong> (if you need urgent mental health support)<br>
-        <strong>Your GP</strong> — call first thing tomorrow and say it is urgent.</p>
-      </div>
+    contentHTML =
+      '<div class="crisis-box">' +
+        '<div class="crisis-title">&#9888; IMMEDIATE SUPPORT AVAILABLE</div>' +
+        '<p>If there are any thoughts of self-harm or not wanting to be here, please stop and contact support now.<br><br>' +
+        '<strong>Samaritans: 116 123</strong> (free, 24/7, no judgement)<br>' +
+        '<strong>NHS 111</strong> (urgent mental health support)<br>' +
+        '<strong>Your GP</strong> \u2014 call first thing tomorrow and say it is urgent.</p>' +
+      '</div>' +
+      '<div class="result-block">' +
+        '<div class="result-block-title">WHAT THIS SCORE MEANS</div>' +
+        '<div class="result-body">' +
+          pNote +
+          '<p>A score of <strong>' + total + '</strong> out of 39 falls in the range that clinically indicates <strong>significant depression requiring professional support</strong>. ' +
+          'This is the upper band of the Gotland Male Depression Scale.</p>' +
+          '<p>This is not a character failing. This is not weakness. This is a clinical condition that responds to treatment \u2014 but it does not improve without action.</p>' +
+          '<p><strong>The most important thing right now: contact a GP.</strong></p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="result-block">' +
+        '<div class="result-block-title">WHAT TO DO \u2014 TODAY, NOT TOMORROW</div>' +
+        '<div class="action-list">' +
+          '<div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Contact a GP today or first thing tomorrow.</strong> Say: "I have completed a validated depression screening and scored in the significant range. I need an urgent appointment." That framing will be heard differently.</span></div>' +
+          '<div class="action-item"><span class="action-num">02</span><span class="action-text">' + (isPartner ? 'Show him this result. Say: "I am worried about you and I need you to take this seriously."' : 'Share this result with one person you trust. You do not need to explain everything \u2014 just show them the number.') + '</span></div>' +
+          '<div class="action-item"><span class="action-num">03</span><span class="action-text">Download the free guide tonight \u2014 it confirms you are not alone and gives language to describe what ' + hes + ' experiencing to a clinician.</span></div>' +
+          '<div class="action-item"><span class="action-num">04</span><span class="action-text">If alcohol or substances are part of the picture, tell the GP. This is clinical information, not a confession.</span></div>' +
+        '</div>' +
+      '</div>';
 
-      <div class="result-block">
-        <div class="result-block-title">WHAT THIS SCORE MEANS</div>
-        <div class="result-body">
-          ${partnerNote ? `<p style="margin-bottom:0.75rem;color:var(--gold);font-style:italic;">${partnerNote}</p>` : ''}
-          <p>A score of <strong>${total}</strong> out of 39 falls in the range that clinically indicates <strong>significant depression requiring professional support</strong>. This is the upper band of the Gotland Male Depression Scale — it means the pattern of symptoms ${subjectHe === 'you' ? 'you are experiencing' : 'you are observing'} is severe enough to warrant prompt professional intervention.</p>
-          <br>
-          <p>This is not a character failing. This is not weakness. This is a clinical condition that responds to treatment. But it does not get better without action — and the longer it goes unaddressed, the harder it becomes for everyone in the family.</p>
-          <br>
-          <p><strong>The most important thing you can do today is one thing: contact a GP.</strong></p>
-        </div>
-      </div>
-
-      <div class="result-block">
-        <div class="result-block-title">WHAT TO DO — TODAY, NOT TOMORROW</div>
-        <div class="action-list">
-          <div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Contact a GP today or tomorrow morning.</strong> Say: "I've completed a validated depression screening and scored in the significant range. I need an urgent appointment." That framing will be heard differently than "I'm feeling a bit low."</span></div>
-          <div class="action-item"><span class="action-num">02</span><span class="action-text">${whoIs === 'partner' ? 'Show him this result if you can. Do not minimise it. Say: "I\'m worried about you and I need you to take this seriously."' : 'Share this result with one person you trust — your partner, a friend, a family member. You do not need to explain everything. Just show them the number.'}</span></div>
-          <div class="action-item"><span class="action-num">03</span><span class="action-text">Download our free guide tonight — it gives you the language to describe what ${subjectHe === 'you' ? "you're" : "he's"} experiencing to a clinician, and confirms you are not alone in this.</span></div>
-          <div class="action-item"><span class="action-num">04</span><span class="action-text">If alcohol or substances are part of the picture, tell the GP. This is important clinical information, not a confession.</span></div>
-        </div>
-      </div>
-    `;
-
-    ctaHTML = `
-      <a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide Now →</a>
-      <a href="https://parents2beintl.com/paid-guide" class="cta-secondary">The New Father's Postpartum Code (£47) →</a>
-      <a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>
-    `;
+    ctaHTML =
+      '<a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide Now &rarr;</a>' +
+      '<a href="https://parents2beintl.com" class="cta-secondary">The New Father\'s Postpartum Code (&pound;47) &rarr;</a>' +
+      '<a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>';
   }
 
-  // Inject into DOM
+  // Inject
   document.getElementById('score-number').textContent = total;
   document.getElementById('score-band').textContent   = band;
   document.getElementById('score-range').textContent  = bandLabel;
+  document.getElementById('result-title').innerHTML   = titleHTML;
+  document.getElementById('result-content').innerHTML = contentHTML;
+  document.getElementById('cta-stack').innerHTML      = ctaHTML;
 
-  setTimeout(() => {
-    document.getElementById('score-bar-fill').style.width = Math.min(pct, 100) + '%';
-  }, 100);
+  document.getElementById('email-desc').textContent = isPartner
+    ? "Enter your email and we will send you the free partner guide based on what you have observed."
+    : "Enter your email and we will send you the free guide written for you, based on your score.";
 
-  document.getElementById('result-title').innerHTML    = resultTitle;
-  document.getElementById('result-content').innerHTML  = resultContent;
-  document.getElementById('cta-stack').innerHTML       = ctaHTML;
+  // Animate bar after paint
+  setTimeout(function() {
+    document.getElementById('score-bar-fill').style.width = pct + '%';
+  }, 120);
 
-  // Update email capture desc based on who
-  document.getElementById('email-capture-desc').textContent =
-    whoIs === 'father'
-      ? "Enter your email and we'll send you the free guide written for you — plus what to do next based on your score."
-      : "Enter your email and we'll send you the free guide written for partners — plus what to do next based on what you've observed.";
-
-  // Progress = complete
+  // Progress complete
   document.getElementById('progress-fill').style.width = '100%';
   document.getElementById('progress-label').textContent = '13 / 13';
 
   showScreen('screen-results');
 }
 
-// ── EMAIL SUBMIT ──────────────────────────────────────────────────────────────
+// ── EMAIL ─────────────────────────────────────────────────────────────────────
 function submitEmail() {
-  const email = document.getElementById('email-input').value.trim();
-  if (!email || !email.includes('@')) {
-    document.getElementById('email-input').style.borderColor = '#e07070';
+  var emailEl = document.getElementById('email-input');
+  var email   = emailEl.value.trim();
+
+  if (!email || email.indexOf('@') === -1) {
+    emailEl.style.borderColor = '#e07070';
+    emailEl.focus();
     return;
   }
 
-  // In production: POST to your Netlify serverless function
-  // which connects to MailerLite — same infrastructure as your quiz.
-  // Payload: { email, score, band, who }
-  const score = answers.reduce((s, v) => s + (v || 0), 0);
-  const band  = score <= 12 ? 'none' : score <= 26 ? 'probable' : 'significant';
+  emailEl.style.borderColor = '';
 
+  var total = 0;
+  for (var i = 0; i < answers.length; i++) { total += (answers[i] || 0); }
+  var band = total <= 12 ? 'none' : total <= 26 ? 'probable' : 'significant';
+
+  // POST to Netlify function — silent fail if not deployed yet
   fetch('/.netlify/functions/subscribe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, score, band, who: whoIs })
-  }).catch(() => {
-    // Silent fail — confirmation still shows
-  });
+    body: JSON.stringify({ email: email, score: total, band: band, who: whoIs })
+  }).catch(function() {});
 
-  document.querySelector('.email-capture').innerHTML = `
-    <div style="text-align:center;padding:1rem 0;">
-      <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.5rem;">CONFIRMED</div>
-      <p style="font-size:0.78rem;color:rgba(245,245,245,0.6);line-height:1.7;">
-        Guide sent to <strong style="color:var(--white)">${email}</strong>.
-        Check your inbox — and your spam folder if it doesn't arrive within 5 minutes.
-      </p>
-    </div>
-  `;
+  // Show confirmation regardless
+  document.getElementById('email-capture').innerHTML =
+    '<div style="text-align:center;padding:1rem 0;">' +
+      '<div style="font-family:\'Courier New\',monospace;font-size:0.6rem;letter-spacing:0.2em;color:#C9A84C;margin-bottom:0.5rem;">CONFIRMED</div>' +
+      '<p style="font-family:Arial,sans-serif;font-size:0.78rem;color:rgba(245,245,245,0.6);line-height:1.7;">' +
+        'Guide sent to <strong style="color:#F5F5F5">' + email + '</strong>.<br>' +
+        'Check your inbox \u2014 and your spam folder if it does not arrive within 5 minutes.' +
+      '</p>' +
+    '</div>';
 }
 </script>
-
 </body>
 </html>
-
