@@ -3,983 +3,1222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Is It More Than Just Tiredness? | Parents2Be International</title>
-<meta name="description" content="A partner wellbeing assessment for those watching a new father struggle. 7 questions. 2 minutes. An answer.">
+<title>Is He Experiencing Paternal Postpartum Depression? | Parents2Be International</title>
+<meta name="description" content="A clinically validated screening tool for paternal postpartum depression. Free, anonymous, evidence-based. Used by NHS perinatal mental health services.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --black: #080808;
+    --black: #000000;
     --gold: #C9A84C;
-    --gold-light: #E2C97E;
-    --white: #F5F2EC;
-    --white-dim: rgba(245,242,236,0.6);
-    --white-faint: rgba(245,242,236,0.15);
+    --gold-light: #e8c97a;
+    --gold-dim: rgba(201,168,76,0.12);
+    --white: #F5F5F5;
+    --muted: rgba(245,245,245,0.5);
+    --border: rgba(201,168,76,0.25);
+    --mid: #111111;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html, body {
+  html { scroll-behavior: smooth; }
+
+  body {
     background: var(--black);
     color: var(--white);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
     min-height: 100vh;
-    overflow-x: hidden;
   }
 
-  /* GRAIN OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
+  /* ── PROGRESS ── */
+  #progress-bar-wrap {
+    position: sticky;
+    top: 0;
     z-index: 100;
-    opacity: 0.4;
-  }
-
-  /* LAYOUT */
-  .screen {
-    display: none;
-    min-height: 100vh;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 48px 24px;
-    animation: fadeIn 0.6s ease forwards;
-  }
-
-  .screen.active { display: flex; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* BRAND HEADER */
-  .brand {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 20px 32px;
+    background: #000;
+    border-bottom: 1px solid var(--border);
+    padding: 0.65rem 1.25rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    z-index: 10;
-    border-bottom: 1px solid var(--white-faint);
-    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    gap: 1rem;
   }
 
-  .brand-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+  #progress-track {
+    flex: 1;
+    height: 2px;
+    background: rgba(201,168,76,0.15);
+    border-radius: 2px;
+  }
+
+  #progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  #progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
     color: var(--gold);
+    white-space: nowrap;
+    min-width: 3.5rem;
+    text-align: right;
   }
 
-  .brand-tag {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--white-dim);
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 1.25rem 5rem;
   }
 
-  /* INTRO SCREEN */
-  .intro-content {
-    max-width: 560px;
-    width: 100%;
-    text-align: center;
-    padding-top: 80px;
-  }
+  /* ── SCREEN STATES ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
 
-  .eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
+  /* ── INTRO SCREEN ── */
+  #screen-intro { padding-top: 2.5rem; }
+
+  .brand-line {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
     color: var(--gold);
-    margin-bottom: 32px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .brand-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
   }
 
   .intro-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 8vw, 58px);
-    font-weight: 300;
+    font-size: clamp(1.9rem, 6.5vw, 2.8rem);
+    font-weight: 600;
     line-height: 1.1;
-    margin-bottom: 28px;
-    color: var(--white);
+    margin-bottom: 1rem;
   }
 
-  .intro-title em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
+  .intro-title em { color: var(--gold); font-style: italic; }
 
   .intro-body {
-    font-size: 15px;
-    line-height: 1.8;
-    color: var(--white-dim);
-    margin-bottom: 48px;
-    max-width: 440px;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 0.85rem;
+    color: rgba(245,245,245,0.65);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+    max-width: 520px;
   }
 
-  .intro-body strong {
-    color: var(--white);
-    font-weight: 400;
-  }
-
-  .stats-row {
+  .intro-who {
     display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 52px;
-    padding: 28px 32px;
-    border: 1px solid var(--white-faint);
-    border-radius: 2px;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
   }
 
-  .stat { text-align: center; }
-
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 300;
-    color: var(--gold);
-    display: block;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .stat-label {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--white-dim);
-  }
-
-  .btn-primary {
-    background: var(--gold);
-    color: var(--black);
-    border: none;
-    padding: 18px 48px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+  .who-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 0.9rem 1rem;
+    background: var(--gold-dim);
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-family: 'Sora', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
     cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-block;
-    margin-bottom: 24px;
+    transition: all 0.2s;
+    text-align: center;
+    border-radius: 1px;
   }
 
-  .btn-primary:hover {
-    background: var(--gold-light);
-    transform: translateY(-1px);
-  }
-
-  .disclaimer {
-    font-size: 11px;
-    color: var(--white-faint);
-    letter-spacing: 0.05em;
-  }
-
-  /* QUESTION SCREEN */
-  .question-wrap {
-    max-width: 600px;
-    width: 100%;
-    padding-top: 100px;
-  }
-
-  .progress-bar {
-    width: 100%;
-    height: 1px;
-    background: var(--white-faint);
-    margin-bottom: 48px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--gold);
-    transition: width 0.5s ease;
-  }
-
-  .q-counter {
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+  .who-btn:hover, .who-btn.selected {
+    background: rgba(201,168,76,0.2);
+    border-color: var(--gold);
     color: var(--gold);
-    margin-bottom: 20px;
+  }
+
+  .who-btn span {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  .btn-start {
+    width: 100%;
+    padding: 1rem;
+    background: var(--gold);
+    color: #000;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 1px;
+    display: none;
+  }
+
+  .btn-start:hover { background: var(--gold-light); }
+  .btn-start.visible { display: block; }
+
+  .trust-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .trust-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: rgba(201,168,76,0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .trust-item::before {
+    content: '✓';
+    color: var(--gold);
+  }
+
+  /* ── QUESTION SCREEN ── */
+  #screen-question { padding-top: 2rem; }
+
+  .q-context {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    color: rgba(201,168,76,0.5);
+    margin-bottom: 0.5rem;
+  }
+
+  .q-instruction {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    line-height: 1.6;
+  }
+
+  .q-instruction em { color: var(--gold); font-style: normal; }
+
+  .q-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: rgba(201,168,76,0.4);
+    margin-bottom: 0.5rem;
   }
 
   .q-text {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(22px, 5vw, 34px);
-    font-weight: 300;
-    line-height: 1.3;
+    font-size: clamp(1.2rem, 4vw, 1.65rem);
+    font-weight: 600;
+    line-height: 1.25;
     color: var(--white);
-    margin-bottom: 40px;
+    margin-bottom: 2rem;
+    min-height: 3rem;
   }
 
-  .options {
+  /* ANSWER OPTIONS */
+  .options-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 40px;
+    gap: 0.55rem;
+    margin-bottom: 2.5rem;
   }
 
-  .option {
-    padding: 18px 24px;
-    border: 1px solid var(--white-faint);
-    background: transparent;
-    color: var(--white-dim);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    line-height: 1.5;
+  .opt-item { position: relative; }
+
+  .opt-item input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 
-  .option:hover {
-    border-color: var(--gold);
-    color: var(--white);
-    background: rgba(201,168,76,0.06);
-  }
-
-  .option.selected {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.12);
-    color: var(--white);
-  }
-
-  .nav-row {
+  .opt-item label {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 0.9rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(201,168,76,0.18);
+    background: rgba(201,168,76,0.02);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 1px;
+  }
+
+  .opt-dot {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 50%;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .opt-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    transition: transform 0.15s ease;
+  }
+
+  .opt-label-text {
+    font-size: 0.82rem;
+    color: rgba(245,245,245,0.7);
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+
+  .opt-score {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: rgba(201,168,76,0.2);
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .opt-item input:checked + label {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.1);
+  }
+
+  .opt-item input:checked + label .opt-dot {
+    border-color: var(--gold);
+  }
+
+  .opt-item input:checked + label .opt-dot::after {
+    transform: translate(-50%,-50%) scale(1);
+  }
+
+  .opt-item input:checked + label .opt-label-text { color: var(--white); }
+  .opt-item input:checked + label .opt-score { color: var(--gold); }
+
+  .opt-item label:hover {
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(201,168,76,0.05);
+  }
+
+  .opt-item label:hover .opt-label-text { color: var(--white); }
+
+  /* NAV */
+  .q-nav {
+    display: flex;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
   }
 
   .btn-back {
+    padding: 0.85rem 1.25rem;
     background: transparent;
-    border: 1px solid var(--white-faint);
-    color: var(--white-dim);
-    padding: 12px 24px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
     letter-spacing: 0.15em;
-    text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s;
+    border-radius: 1px;
   }
 
-  .btn-back:hover {
-    border-color: var(--white-dim);
-    color: var(--white);
-  }
+  .btn-back:hover { border-color: var(--gold); color: var(--gold); }
 
   .btn-next {
-    background: var(--gold);
-    border: none;
-    color: var(--black);
-    padding: 14px 36px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
+    flex: 1;
+    padding: 0.85rem;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.25s ease;
-    opacity: 0.3;
-    pointer-events: none;
+    transition: all 0.2s;
+    border-radius: 1px;
   }
 
-  .btn-next.enabled {
-    opacity: 1;
-    pointer-events: all;
+  .btn-next.ready {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #000;
   }
 
-  .btn-next.enabled:hover {
-    background: var(--gold-light);
-  }
+  .btn-next.ready:hover { background: var(--gold-light); }
 
-  /* RESULT SCREEN */
-  .result-wrap {
-    max-width: 620px;
-    width: 100%;
-    padding-top: 100px;
-  }
+  /* ── RESULTS SCREEN ── */
+  #screen-results { padding-top: 2.5rem; }
 
-  .result-label {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
+  .result-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
     color: var(--gold);
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 
   .result-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 6vw, 44px);
-    font-weight: 300;
-    line-height: 1.2;
-    color: var(--white);
-    margin-bottom: 24px;
+    font-size: clamp(1.7rem, 5.5vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 1rem;
   }
 
-  .result-divider {
-    width: 48px;
-    height: 1px;
+  .result-title em { color: var(--gold); font-style: italic; }
+
+  /* SCORE DISPLAY */
+  .score-display {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+
+  .score-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 3rem;
+  }
+
+  .score-info-wrap { flex: 1; }
+
+  .score-band {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+  }
+
+  .score-range {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  /* SCORE BAR */
+  .score-bar-wrap {
+    margin: 1rem 0 1.5rem;
+  }
+
+  .score-bar-track {
+    height: 6px;
+    background: rgba(201,168,76,0.1);
+    border-radius: 3px;
+    position: relative;
+    overflow: visible;
+    margin-bottom: 0.5rem;
+  }
+
+  .score-bar-fill {
+    height: 100%;
     background: var(--gold);
-    margin-bottom: 28px;
+    border-radius: 3px;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    position: relative;
+  }
+
+  .score-bar-fill::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    border: 2px solid #000;
+  }
+
+  .score-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: rgba(201,168,76,0.3);
+    letter-spacing: 0.08em;
+  }
+
+  /* RESULT CONTENT */
+  .result-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .result-block-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
   }
 
   .result-body {
-    font-size: 15px;
-    line-height: 1.9;
-    color: var(--white-dim);
-    margin-bottom: 40px;
+    font-size: 0.85rem;
+    color: rgba(245,245,245,0.7);
+    line-height: 1.75;
   }
 
-  .result-body strong {
-    color: var(--white);
-    font-weight: 400;
+  .result-body strong { color: var(--white); font-weight: 600; }
+
+  /* ACTION ITEMS */
+  .action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
   }
+
+  .action-item {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem 0.9rem;
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 1px;
+  }
+
+  .action-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gold);
+    min-width: 1.2rem;
+    padding-top: 0.15rem;
+  }
+
+  .action-text {
+    font-size: 0.8rem;
+    color: rgba(245,245,245,0.75);
+    line-height: 1.5;
+  }
+
+  /* CRISIS BOX */
+  .crisis-box {
+    background: rgba(180,60,60,0.08);
+    border: 1px solid rgba(180,60,60,0.3);
+    padding: 1rem 1.1rem;
+    margin: 1.5rem 0;
+  }
+
+  .crisis-box-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: #e07070;
+    margin-bottom: 0.5rem;
+  }
+
+  .crisis-box p {
+    font-size: 0.78rem;
+    color: rgba(245,245,245,0.65);
+    line-height: 1.6;
+  }
+
+  .crisis-box strong { color: var(--white); }
+
+  /* CTA BUTTONS */
+  .cta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .cta-primary {
+    display: block;
+    padding: 1rem;
+    background: var(--gold);
+    color: #000;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 1px;
+    width: 100%;
+  }
+
+  .cta-primary:hover { background: var(--gold-light); }
+
+  .cta-secondary {
+    display: block;
+    padding: 0.85rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: rgba(245,245,245,0.6);
+    text-decoration: none;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 1px;
+  }
+
+  .cta-secondary:hover { border-color: var(--gold); color: var(--gold); }
 
   /* EMAIL CAPTURE */
   .email-capture {
-    border: 1px solid var(--white-faint);
-    padding: 36px 32px;
-    margin-bottom: 32px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .email-capture::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px;
-    height: 100%;
-    background: var(--gold);
+    background: rgba(201,168,76,0.05);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    margin: 1.5rem 0;
   }
 
   .email-capture-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 300;
-    color: var(--white);
-    margin-bottom: 10px;
-    line-height: 1.3;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
   }
 
-  .email-capture-sub {
-    font-size: 13px;
-    color: var(--white-dim);
-    line-height: 1.7;
-    margin-bottom: 24px;
-  }
-
-  .email-capture-sub strong {
-    color: var(--gold-light);
-    font-weight: 400;
+  .email-capture p {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    line-height: 1.6;
   }
 
   .email-row {
     display: flex;
-    gap: 0;
+    gap: 0.5rem;
   }
 
   .email-input {
     flex: 1;
-    background: rgba(245,242,236,0.05);
-    border: 1px solid var(--white-faint);
-    border-right: none;
+    padding: 0.75rem 0.85rem;
+    background: rgba(201,168,76,0.03);
+    border: 1px solid rgba(201,168,76,0.2);
     color: var(--white);
-    padding: 14px 18px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 300;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.8rem;
     outline: none;
-    transition: border-color 0.25s;
+    border-radius: 1px;
+    transition: border-color 0.2s;
   }
 
-  .email-input::placeholder { color: rgba(245,242,236,0.3); }
+  .email-input:focus { border-color: var(--gold); }
+  .email-input::placeholder { color: rgba(245,245,245,0.2); }
 
-  .email-input:focus {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.05);
-  }
-
-  .btn-email {
+  .email-submit {
+    padding: 0.75rem 1rem;
     background: var(--gold);
+    color: #000;
     border: none;
-    color: var(--black);
-    padding: 14px 24px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
     cursor: pointer;
+    transition: all 0.2s;
     white-space: nowrap;
-    transition: background 0.25s;
+    border-radius: 1px;
   }
 
-  .btn-email:hover { background: var(--gold-light); }
+  .email-submit:hover { background: var(--gold-light); }
 
-  .btn-email:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  .privacy-note {
+    font-size: 0.6rem;
+    color: rgba(245,245,245,0.25);
+    margin-top: 0.6rem;
+    line-height: 1.5;
   }
 
-  .email-privacy {
-    font-size: 11px;
-    color: rgba(245,242,236,0.3);
-    margin-top: 12px;
-    letter-spacing: 0.03em;
-  }
-
-  .email-success {
-    display: none;
-    text-align: center;
-    padding: 20px 0;
-  }
-
-  .email-success-icon {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  .email-success-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 300;
-    color: var(--gold-light);
-    margin-bottom: 6px;
-  }
-
-  .email-success-sub {
-    font-size: 13px;
-    color: var(--white-dim);
-  }
-
-  .skip-link {
-    font-size: 11px;
-    color: rgba(245,242,236,0.3);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    border: none;
-    background: none;
-    font-family: 'DM Sans', sans-serif;
-    display: block;
-    text-align: center;
-    margin-bottom: 32px;
-    transition: color 0.2s;
-  }
-
-  .skip-link:hover { color: var(--white-dim); }
-
-  /* NEXT STEPS */
-  .next-steps {
-    border-top: 1px solid var(--white-faint);
-    padding-top: 32px;
-    margin-bottom: 48px;
-  }
-
-  .next-steps-title {
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--white-dim);
-    margin-bottom: 20px;
-  }
-
-  .next-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--white-faint);
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.25s;
-    cursor: pointer;
-  }
-
-  .next-card:last-child { border-bottom: none; }
-
-  .next-card:hover .next-card-title { color: var(--gold-light); }
-
-  .next-card-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 300;
-    color: var(--gold);
-    min-width: 32px;
-    line-height: 1;
-    margin-top: 2px;
-  }
-
-  .next-card-title {
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 4px;
-    transition: color 0.25s;
-  }
-
-  .next-card-desc {
-    font-size: 12px;
-    color: var(--white-dim);
+  .disclaimer {
+    font-size: 0.65rem;
+    color: rgba(245,245,245,0.25);
     line-height: 1.6;
-  }
-
-  /* RETAKE */
-  .btn-retake {
-    background: transparent;
-    border: 1px solid var(--white-faint);
-    color: var(--white-dim);
-    padding: 12px 28px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.25s;
-    margin-bottom: 48px;
-  }
-
-  .btn-retake:hover {
-    border-color: var(--white-dim);
-    color: var(--white);
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    margin-top: 2rem;
   }
 
   /* FOOTER */
-  .footer {
-    text-align: center;
-    padding: 32px 24px;
-    border-top: 1px solid var(--white-faint);
-    font-size: 11px;
-    color: rgba(245,242,236,0.25);
-    letter-spacing: 0.05em;
-    line-height: 1.8;
+  footer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
-  .footer a {
-    color: rgba(245,242,236,0.35);
-    text-decoration: none;
+  footer span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: rgba(201,168,76,0.3);
   }
 
-  /* SCORE INDICATOR */
-  .score-band {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 18px;
-    border: 1px solid var(--gold);
-    margin-bottom: 28px;
+  /* ANIMATION */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .score-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--gold);
-  }
-
-  .score-text {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  @media (max-width: 480px) {
-    .stats-row { gap: 24px; padding: 20px; }
-    .email-row { flex-direction: column; }
-    .email-input { border-right: 1px solid var(--white-faint); border-bottom: none; }
-    .brand-tag { display: none; }
-    .email-capture { padding: 24px 20px; }
-  }
+  .fade-in { animation: fadeUp 0.35s ease forwards; }
 </style>
 </head>
 <body>
 
-<header class="brand">
-  <span class="brand-name">Parents2Be International</span>
-  <span class="brand-tag">Partner Wellbeing Assessment</span>
-</header>
-
-<!-- INTRO SCREEN -->
-<div class="screen active" id="screen-intro">
-  <div class="intro-content">
-    <p class="eyebrow">Partner Wellbeing Assessment</p>
-    <h1 class="intro-title">Is it more than<br><em>just tiredness?</em></h1>
-    <p class="intro-body">
-      Something has shifted. You can feel it — but you can't quite name it.<br><br>
-      <strong>This isn't a quiz about your partner. It's a quiz about what you're witnessing.</strong><br><br>
-      Seven questions. Two minutes. An answer that finally gives you a word for what you've been watching unfold.
-    </p>
-    <div class="stats-row">
-      <div class="stat">
-        <span class="stat-num">7</span>
-        <span class="stat-label">Questions</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">2</span>
-        <span class="stat-label">Minutes</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">Free</span>
-        <span class="stat-label">Result</span>
-      </div>
-    </div>
-    <button class="btn-primary" onclick="startQuiz()">Begin the Assessment</button>
-    <p class="disclaimer">For partners and co-parents of new fathers. Not a clinical tool. No data stored without consent.</p>
-  </div>
+<!-- PROGRESS BAR -->
+<div id="progress-bar-wrap">
+  <div id="progress-track"><div id="progress-fill"></div></div>
+  <div id="progress-label">0 / 13</div>
 </div>
 
-<!-- QUESTION SCREEN -->
-<div class="screen" id="screen-question">
-  <div class="question-wrap">
-    <div class="progress-bar">
-      <div class="progress-fill" id="progress-fill"></div>
-    </div>
-    <p class="q-counter" id="q-counter">Question 1 of 7</p>
-    <h2 class="q-text" id="q-text"></h2>
-    <div class="options" id="options-container"></div>
-    <div class="nav-row">
-      <button class="btn-back" id="btn-back" onclick="prevQuestion()">← Back</button>
-      <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next →</button>
-    </div>
+<!-- ═══════════════════ INTRO SCREEN ═══════════════════ -->
+<div class="container">
+<div id="screen-intro" class="screen active fade-in">
+
+  <div class="brand-line">Parents2Be International</div>
+
+  <h1 class="intro-title">
+    Is He Experiencing<br>
+    Paternal Postpartum<br>
+    <em>Depression?</em>
+  </h1>
+
+  <p class="intro-body">
+    1 in 10 new fathers experience postnatal depression. Over 80% go undiagnosed.
+    Not because it's rare — because nobody checks.<br><br>
+    This assessment uses the <strong style="color:var(--white)">Gotland Male Depression Scale</strong> —
+    a clinically validated screening tool specifically designed to detect depression
+    in men, whose symptoms present differently from women. It takes under 3 minutes.
+    Your responses are not stored.
+  </p>
+
+  <p style="font-size:0.78rem;color:var(--gold);margin-bottom:1rem;font-family:'DM Mono',monospace;letter-spacing:0.1em;">WHO IS COMPLETING THIS?</p>
+
+  <div class="intro-who">
+    <button class="who-btn" id="btn-partner" onclick="selectWho('partner')">
+      I am his partner
+      <span>Answering about what I've observed</span>
+    </button>
+    <button class="who-btn" id="btn-father" onclick="selectWho('father')">
+      I am the father
+      <span>Answering about my own experience</span>
+    </button>
   </div>
+
+  <button class="btn-start" id="btn-start" onclick="startAssessment()">
+    Begin Assessment →
+  </button>
+
+  <div class="trust-row">
+    <div class="trust-item">Anonymous — no data stored</div>
+    <div class="trust-item">Clinically validated scale</div>
+    <div class="trust-item">Under 3 minutes</div>
+    <div class="trust-item">UK-focused</div>
+  </div>
+
 </div>
 
-<!-- RESULT SCREEN -->
-<div class="screen" id="screen-result">
-  <div class="result-wrap">
-    <p class="result-label">Your Assessment Result</p>
-    <div class="score-band" id="score-band">
-      <div class="score-dot"></div>
-      <span class="score-text" id="score-text"></span>
-    </div>
-    <h2 class="result-title" id="result-title"></h2>
-    <div class="result-divider"></div>
-    <p class="result-body" id="result-body"></p>
+<!-- ═══════════════════ QUESTION SCREEN ═══════════════════ -->
+<div id="screen-question" class="screen">
 
-    <!-- EMAIL CAPTURE -->
-    <div class="email-capture" id="email-capture-block">
-      <h3 class="email-capture-title">Want to understand what comes next?</h3>
-      <p class="email-capture-sub">
-        Enter your email and we'll send you <strong>The 7 Signs — free.</strong><br>
-        A guide written by a partner who witnessed this first-hand. What it looks like. What it means. What to do.
-      </p>
-      <div id="email-form-wrap">
-        <div class="email-row">
-          <input type="email" class="email-input" id="email-input" placeholder="Your email address" />
-          <button class="btn-email" id="btn-email" onclick="submitEmail()">Send it to me</button>
-        </div>
-        <p class="email-privacy">No spam. Unsubscribe any time. Your email is never shared.</p>
-      </div>
-      <div class="email-success" id="email-success">
-        <div class="email-success-icon">✦</div>
-        <p class="email-success-text">On its way to you.</p>
-        <p class="email-success-sub">Check your inbox — the guide will be there shortly.</p>
-      </div>
-    </div>
+  <div class="q-context">GOTLAND MALE DEPRESSION SCALE · PARENTS2BE.INTL</div>
 
-    <button class="skip-link" onclick="skipEmail()">No thanks, continue without the guide</button>
+  <p class="q-instruction" id="q-instruction">
+    Think about the last two weeks. For each statement, choose the response that best
+    describes how <em id="instruction-subject">he has been</em>.
+  </p>
 
-    <div class="next-steps" id="next-steps" style="display:none">
-      <p class="next-steps-title">What you can do right now</p>
-      <a class="next-card" href="https://parents2beintl.lemonsqueezy.com/checkout/buy/8a3f0cdb-2857-49d0-b3e2-c7d379d9b9b6" target="_blank">
-        <span class="next-card-num">01</span>
-        <div>
-          <p class="next-card-title">The New Father's Postpartum Code — £47</p>
-          <p class="next-card-desc">45 pages. Written by a partner who witnessed paternal PPD first-hand. The full picture of what's happening and the path through — for both of you.</p>
-        </div>
-      </a>
-      <a class="next-card" href="http://subscribepage.io/W3WGYX" target="_blank">
-        <span class="next-card-num">02</span>
-        <div>
-          <p class="next-card-title">Get the free 7 Signs guide</p>
-          <p class="next-card-desc">The seven signs of paternal postpartum depression. Explained plainly. Free to download.</p>
-        </div>
-      </a>
-      <a class="next-card" href="https://www.parents2beintl.com" target="_blank">
-        <span class="next-card-num">03</span>
-        <div>
-          <p class="next-card-title">Visit Parents2Be International</p>
-          <p class="next-card-desc">Resources, articles, and community for families navigating paternal postpartum.</p>
-        </div>
-      </a>
-    </div>
+  <div class="q-number" id="q-number">QUESTION 1 OF 13</div>
+  <div class="q-text" id="q-text"></div>
 
-    <button class="btn-retake" onclick="retakeQuiz()">Retake the Assessment</button>
+  <div class="options-list" id="options-list"></div>
+
+  <div class="q-nav">
+    <button class="btn-back" id="btn-back" onclick="prevQuestion()">← Back</button>
+    <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next →</button>
   </div>
-  <footer class="footer">
-    This assessment is for informational purposes only and does not constitute medical advice.<br>
-    If you or your partner are in crisis, please contact your GP or call NHS 111.<br><br>
-    © Parents2Be International · <a href="https://www.parents2beintl.com">parents2beintl.com</a>
-  </footer>
+
 </div>
 
+<!-- ═══════════════════ RESULTS SCREEN ═══════════════════ -->
+<div id="screen-results" class="screen">
+
+  <div class="result-eyebrow" id="result-eyebrow">ASSESSMENT COMPLETE · PARENTS2BE.INTL</div>
+
+  <h2 class="result-title" id="result-title"></h2>
+
+  <div class="score-display">
+    <div class="score-number" id="score-number">0</div>
+    <div class="score-info-wrap">
+      <div class="score-band" id="score-band"></div>
+      <div class="score-range" id="score-range"></div>
+    </div>
+  </div>
+
+  <div class="score-bar-wrap">
+    <div class="score-bar-track">
+      <div class="score-bar-fill" id="score-bar-fill" style="width:0%"></div>
+    </div>
+    <div class="score-bar-labels">
+      <span>0 — No indication</span>
+      <span>13 — Probable</span>
+      <span>27 — Significant</span>
+      <span>39</span>
+    </div>
+  </div>
+
+  <!-- DYNAMIC RESULT CONTENT -->
+  <div id="result-content"></div>
+
+  <!-- EMAIL CAPTURE -->
+  <div class="email-capture">
+    <div class="email-capture-title">RECEIVE YOUR FREE GUIDE</div>
+    <p id="email-capture-desc">Enter your email and we'll send you the appropriate free guide based on your results — plus what to do next.</p>
+    <div class="email-row">
+      <input type="email" class="email-input" id="email-input" placeholder="Your email address">
+      <button class="email-submit" onclick="submitEmail()">Send →</button>
+    </div>
+    <p class="privacy-note">Your email is used only to send your guide. Your assessment responses are never linked to your email. Unsubscribe anytime.</p>
+  </div>
+
+  <!-- CTA STACK -->
+  <div class="cta-stack" id="cta-stack"></div>
+
+  <div class="disclaimer">
+    This assessment is for informational purposes only and does not constitute a clinical diagnosis.
+    The Gotland Male Depression Scale (Zierau et al., 2002) is a validated screening instrument.
+    A positive screen indicates that professional assessment is warranted — not that a diagnosis has been made.
+    If you are concerned about immediate safety, contact your GP or call the Samaritans on <strong style="color:var(--white)">116 123</strong> (free, 24/7).
+  </div>
+
+</div>
+</div><!-- end container -->
+
+<footer>
+  <span>© Parents2Be International</span>
+  <span>Evidence-Based · Anonymous · UK-Focused</span>
+  <span>parents2beintl.com</span>
+</footer>
+
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
 <script>
-const questions = [
-  {
-    text: "In the past few weeks, has your partner seemed emotionally distant — present in the room but not really there?",
-    options: [
-      { text: "Yes, noticeably — it's been hard to reach him", score: 3 },
-      { text: "Sometimes, but I put it down to tiredness", score: 2 },
-      { text: "Occasionally, but nothing that concerns me", score: 1 },
-      { text: "No, he seems emotionally present", score: 0 }
-    ]
-  },
-  {
-    text: "Has his temper or irritability changed since the baby arrived?",
-    options: [
-      { text: "Yes — he's noticeably more short-tempered or reactive", score: 3 },
-      { text: "He seems on edge, but I'd expect that with a newborn", score: 2 },
-      { text: "Minor changes, nothing significant", score: 1 },
-      { text: "No change in his temperament", score: 0 }
-    ]
-  },
-  {
-    text: "Has he withdrawn from things he used to enjoy — hobbies, friends, activities outside the home?",
-    options: [
-      { text: "Yes, he's pulled back from almost everything", score: 3 },
-      { text: "He's less engaged, but he's been busy with the baby", score: 2 },
-      { text: "A little, but that seems normal right now", score: 1 },
-      { text: "No, he's still engaged with the things he enjoys", score: 0 }
-    ]
-  },
-  {
-    text: "How would you describe his connection to the baby?",
-    options: [
-      { text: "He seems to struggle to bond — interactions feel mechanical", score: 3 },
-      { text: "He's trying but seems uncertain or overwhelmed", score: 2 },
-      { text: "The connection is building slowly — I think it's normal", score: 1 },
-      { text: "He seems naturally bonded and engaged", score: 0 }
-    ]
-  },
-  {
-    text: "Have you noticed changes in his sleep, appetite, or energy that go beyond normal new-parent exhaustion?",
-    options: [
-      { text: "Yes — he either can't sleep or sleeps excessively, and his appetite has changed significantly", score: 3 },
-      { text: "He's exhausted but it feels more intense than just tiredness", score: 2 },
-      { text: "He's tired, but that's to be expected", score: 1 },
-      { text: "Nothing beyond what I'd expect from a new parent", score: 0 }
-    ]
-  },
-  {
-    text: "Has he expressed — directly or indirectly — feeling like a failure, feeling trapped, or not recognising himself?",
-    options: [
-      { text: "Yes, he's said things that concern me — or gone very quiet in a way that does", score: 3 },
-      { text: "He's made comments that I wasn't sure how to read", score: 2 },
-      { text: "He's expressed some doubt but seems okay overall", score: 1 },
-      { text: "No, he seems to have a healthy sense of himself right now", score: 0 }
-    ]
-  },
-  {
-    text: "How long have you been noticing these changes?",
-    options: [
-      { text: "Several months — it's been building and getting harder to ignore", score: 3 },
-      { text: "A few weeks — something shifted and hasn't shifted back", score: 2 },
-      { text: "Only recently — it might still be early adjustment", score: 1 },
-      { text: "I'm not sure I've noticed significant changes", score: 0 }
-    ]
-  }
-];
-
-const results = [
-  {
-    min: 0, max: 5,
-    band: "Low Indicators",
-    title: "The signs are minimal right now.",
-    body: "Based on your responses, the indicators for paternal postpartum depression are low. What you're describing sounds more consistent with the normal — if exhausting — adjustment to new fatherhood.\n\nThat said, paternal PPD can emerge gradually, and the fact that you're paying attention matters. Trust what you observe. If things change or you feel something shift, come back.\n\n<strong>You're doing the right thing by watching closely.</strong>"
-  },
-  {
-    min: 6, max: 11,
-    band: "Some Indicators Present",
-    title: "Something is there. You were right to look.",
-    body: "Your responses suggest some indicators that are worth taking seriously. These patterns — emotional distance, irritability, withdrawal — don't always mean paternal postpartum depression, but they are recognised signs that something is happening beneath the surface.\n\nThe fact that you noticed, and that you sought a word for it, is important. <strong>Partners are often the first to see what a struggling father can't name himself.</strong>\n\nThis is the time to understand what you're looking at — before it grows."
-  },
-  {
-    min: 12, max: 17,
-    band: "Significant Indicators",
-    title: "What you're seeing has a name.",
-    body: "Based on what you've described, the pattern you're witnessing is consistent with paternal postpartum depression. The combination of emotional withdrawal, irritability, disconnection, and the duration of these changes places this beyond typical new-parent adjustment.\n\n<strong>This is not a character flaw. It is not a choice. And it is not something that resolves on its own without awareness.</strong>\n\nYou are not imagining it. You are not overreacting. What you've been feeling — that quiet dread that something is wrong — that instinct was right.\n\nThe next step is understanding what this looks like, what it means for your family, and what the path through actually is."
-  },
-  {
-    min: 18, max: 21,
-    band: "Strong Indicators",
-    title: "You already knew. Now you have a word for it.",
-    body: "What you've described reflects a strong pattern of paternal postpartum depression indicators. The emotional absence, the withdrawal, the disconnection from the baby, the duration — these are not signs of a difficult personality or a bad father. They are clinical signs of a condition that <strong>affects 1 in 10 new dads in the UK and goes unrecognised by the NHS.</strong>\n\nYou have been carrying the weight of watching someone you love disappear, without language for what you were seeing and without a system designed to help you.\n\n<strong>That changes now.</strong>\n\nThe guide below was written specifically for you — by a partner who witnessed this. It explains what paternal PPD actually looks like from the outside, what it means for your relationship and your child, and what the path through is."
-  }
-];
-
+// ── STATE ────────────────────────────────────────────────────────────────────
+let whoIs = null;          // 'father' | 'partner'
 let currentQ = 0;
-let answers = new Array(questions.length).fill(null);
-let emailSubmitted = false;
+let answers  = new Array(13).fill(null);
 
-function startQuiz() {
+// ── QUESTIONS (Gotland Male Depression Scale, Zierau et al. 2002) ────────────
+// Each question has father-voice and partner-voice variants.
+// Scores: 0 = Not at all | 1 = To some extent | 2 = Very true | 3 = Extremely so
+// Total range 0–39. Bands: 0–12 no indication, 13–26 probable, 27–39 significant.
+
+const QUESTIONS = [
+  {
+    father:  "I have a lower stress threshold than usual — I feel more stressed out than normal.",
+    partner: "He seems to have a lower stress threshold than usual — he appears more stressed out than normal.",
+  },
+  {
+    father:  "I have been more aggressive, reactive, and I find it harder to control myself.",
+    partner: "He has been more aggressive, outward-reacting, and appears to have difficulty keeping himself in control.",
+  },
+  {
+    father:  "I have a feeling of being burned out and empty inside.",
+    partner: "He seems to have a feeling of being burned out and empty.",
+  },
+  {
+    father:  "I have been experiencing a constant, inexplicable tiredness.",
+    partner: "He has been experiencing what seems like a constant, inexplicable tiredness.",
+  },
+  {
+    father:  "I have been more irritable, restless, and frustrated than usual.",
+    partner: "He has been more irritable, restless, and frustrated than usual.",
+  },
+  {
+    father:  "I am finding it difficult to make ordinary, everyday decisions.",
+    partner: "He seems to have difficulty making ordinary, everyday decisions.",
+  },
+  {
+    father:  "I have had sleep problems — sleeping too much or too little, sleeping restlessly, difficulty falling asleep, or waking up too early.",
+    partner: "He has had sleep problems — sleeping too much or too little, sleeping restlessly, difficulty falling asleep, or waking up too early.",
+  },
+  {
+    father:  "In the morning especially, I have a feeling of disquiet, anxiety, or uneasiness.",
+    partner: "In the morning especially, he seems to have a feeling of disquiet, anxiety, or uneasiness.",
+  },
+  {
+    father:  "I have been over-consuming alcohol or using pills to achieve a calming effect — or being hyperactive or 'blowing off steam' through overworking, excessive exercise, or under/overeating.",
+    partner: "He has been over-consuming alcohol or using something to achieve a calming effect — or being hyperactive, overworking, exercising excessively, or significantly under/overeating.",
+  },
+  {
+    father:  "I feel my behaviour has changed in ways that neither I nor others can fully recognise — I feel difficult to be around.",
+    partner: "His behaviour has changed in ways that neither he nor others can recognise — he seems difficult to deal with.",
+  },
+  {
+    father:  "I have felt gloomy, negative, or as though everything looks bleak and hopeless.",
+    partner: "He has seemed gloomy, negative, or characterised by hopelessness — as though everything looks bleak.",
+  },
+  {
+    father:  "I have noticed in myself a tendency toward self-pity, complaining, or feeling 'pathetic'.",
+    partner: "He has shown a tendency toward self-pity, complaining, or seeming unusually 'pathetic' or low.",
+  },
+  {
+    father:  "In my biological family, is there any tendency toward abuse, depression, low moods, suicide attempts, or risk-taking behaviour?",
+    partner: "In his biological family, is there any tendency toward abuse, depression, low moods, suicide attempts, or risk-taking behaviour?",
+  },
+];
+
+const ANSWER_LABELS = [
+  { label: "Not at all",   score: 0 },
+  { label: "To some extent", score: 1 },
+  { label: "Very true",    score: 2 },
+  { label: "Extremely so", score: 3 },
+];
+
+// ── WHO SELECTION ─────────────────────────────────────────────────────────────
+function selectWho(who) {
+  whoIs = who;
+  document.getElementById('btn-father').classList.toggle('selected', who === 'father');
+  document.getElementById('btn-partner').classList.toggle('selected', who === 'partner');
+  document.getElementById('btn-start').classList.add('visible');
+
+  const instr = document.getElementById('instruction-subject');
+  instr.textContent = who === 'father' ? 'you have been' : 'he has been';
+}
+
+// ── START ─────────────────────────────────────────────────────────────────────
+function startAssessment() {
+  if (!whoIs) return;
   showScreen('screen-question');
-  renderQuestion();
+  renderQuestion(0);
+  updateProgress(0);
 }
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById(id);
-  el.classList.add('active');
-  window.scrollTo(0, 0);
-}
+// ── RENDER QUESTION ───────────────────────────────────────────────────────────
+function renderQuestion(index) {
+  currentQ = index;
+  const q = QUESTIONS[index];
+  const qText = whoIs === 'father' ? q.father : q.partner;
 
-function renderQuestion() {
-  const q = questions[currentQ];
-  document.getElementById('q-counter').textContent = `Question ${currentQ + 1} of ${questions.length}`;
-  document.getElementById('q-text').textContent = q.text;
-  document.getElementById('progress-fill').style.width = `${((currentQ) / questions.length) * 100}%`;
+  document.getElementById('q-number').textContent = `QUESTION ${index + 1} OF 13`;
+  document.getElementById('q-text').textContent    = qText;
 
-  const container = document.getElementById('options-container');
-  container.innerHTML = '';
+  const list = document.getElementById('options-list');
+  list.innerHTML = '';
 
-  q.options.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
-    btn.textContent = opt.text;
-    btn.onclick = () => selectAnswer(i);
-    container.appendChild(btn);
+  ANSWER_LABELS.forEach((opt, i) => {
+    const item = document.createElement('div');
+    item.className = 'opt-item';
+
+    const id = `opt-${index}-${i}`;
+    const checked = answers[index] === opt.score ? 'checked' : '';
+
+    item.innerHTML = `
+      <input type="radio" name="q${index}" id="${id}" value="${opt.score}" ${checked}>
+      <label for="${id}">
+        <span class="opt-dot"></span>
+        <span class="opt-label-text">${opt.label}</span>
+        <span class="opt-score">${opt.score}/3</span>
+      </label>
+    `;
+
+    item.querySelector('input').addEventListener('change', (e) => {
+      answers[index] = parseInt(e.target.value);
+      document.getElementById('btn-next').classList.add('ready');
+      if (index < 12) {
+        document.getElementById('btn-next').textContent = 'Next →';
+      } else {
+        document.getElementById('btn-next').textContent = 'See Results →';
+      }
+    });
+
+    list.appendChild(item);
   });
 
-  document.getElementById('btn-back').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+  // Back button
+  document.getElementById('btn-back').style.display = index === 0 ? 'none' : 'block';
 
+  // Next button state
   const nextBtn = document.getElementById('btn-next');
-  if (answers[currentQ] !== null) {
-    nextBtn.classList.add('enabled');
-    nextBtn.textContent = currentQ === questions.length - 1 ? 'See My Result →' : 'Next →';
-  } else {
-    nextBtn.classList.remove('enabled');
-    nextBtn.textContent = currentQ === questions.length - 1 ? 'See My Result →' : 'Next →';
-  }
+  nextBtn.classList.toggle('ready', answers[index] !== null);
+  nextBtn.textContent = index < 12 ? 'Next →' : 'See Results →';
+
+  updateProgress(index);
+
+  document.querySelector('.container').scrollTo?.(0,0);
+  window.scrollTo(0,0);
 }
 
-function selectAnswer(index) {
-  answers[currentQ] = index;
-  document.querySelectorAll('.option').forEach((btn, i) => {
-    btn.classList.toggle('selected', i === index);
-  });
-  const nextBtn = document.getElementById('btn-next');
-  nextBtn.classList.add('enabled');
-  nextBtn.textContent = currentQ === questions.length - 1 ? 'See My Result →' : 'Next →';
-}
-
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
 function nextQuestion() {
   if (answers[currentQ] === null) return;
-  if (currentQ < questions.length - 1) {
-    currentQ++;
-    renderQuestion();
+  if (currentQ < 12) {
+    renderQuestion(currentQ + 1);
   } else {
-    showResult();
+    showResults();
   }
 }
 
 function prevQuestion() {
-  if (currentQ > 0) {
-    currentQ--;
-    renderQuestion();
+  if (currentQ > 0) renderQuestion(currentQ - 1);
+  else {
+    showScreen('screen-intro');
+    updateProgress(-1);
   }
 }
 
-function showResult() {
-  const totalScore = answers.reduce((sum, answerIndex, qIndex) => {
-    if (answerIndex === null) return sum;
-    return sum + questions[qIndex].options[answerIndex].score;
-  }, 0);
-
-  const result = results.find(r => totalScore >= r.min && totalScore <= r.max) || results[results.length - 1];
-
-  document.getElementById('score-text').textContent = result.band;
-  document.getElementById('result-title').textContent = result.title;
-  document.getElementById('result-body').innerHTML = result.body.replace(/\n\n/g, '<br><br>');
-
-  document.getElementById('progress-fill').style.width = '100%';
-
-  // Reset email state
-  document.getElementById('email-capture-block').style.display = 'block';
-  document.getElementById('email-form-wrap').style.display = 'block';
-  document.getElementById('email-success').style.display = 'none';
-  document.getElementById('email-input').value = '';
-  document.querySelector('.skip-link').style.display = 'block';
-  document.getElementById('next-steps').style.display = 'none';
-  const emailBtn = document.getElementById('btn-email');
-  emailBtn.disabled = false;
-  emailBtn.textContent = 'Send it to me';
-
-  showScreen('screen-result');
+// ── PROGRESS ─────────────────────────────────────────────────────────────────
+function updateProgress(qIndex) {
+  const pct = qIndex < 0 ? 0 : (qIndex / 13) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent =
+    qIndex < 0 ? '0 / 13' : `${qIndex} / 13`;
 }
 
-function submitEmail() {
-  const emailInput = document.getElementById('email-input');
-  const email = emailInput.value.trim();
+// ── SHOW SCREEN ───────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  target.classList.add('active');
+  target.classList.remove('fade-in');
+  void target.offsetWidth;
+  target.classList.add('fade-in');
+  window.scrollTo(0,0);
+}
 
+// ── CALCULATE & SHOW RESULTS ──────────────────────────────────────────────────
+function showResults() {
+  const total = answers.reduce((sum, v) => sum + (v || 0), 0);
+  const pct   = (total / 39) * 100;
+
+  // Score band
+  let band, bandLabel, resultTitle, resultContent, ctaHTML;
+
+  const subjectHe   = whoIs === 'partner' ? 'he' : 'you';
+  const subjectHis  = whoIs === 'partner' ? 'his' : 'your';
+  const subjectHim  = whoIs === 'partner' ? 'him' : 'you';
+  const partnerNote = whoIs === 'partner'
+    ? 'You completed this assessment on behalf of your partner. What you\'ve observed matters — partners are often the first and only people to notice.'
+    : '';
+
+  if (total <= 12) {
+    band      = 'NO SIGNIFICANT INDICATION';
+    bandLabel = 'Score 0–12: No significant indication of depression at this time';
+    resultTitle = `At This Score, <em>No Significant Indication</em> Is Present.`;
+
+    resultContent = `
+      <div class="result-block">
+        <div class="result-block-title">WHAT THIS MEANS</div>
+        <div class="result-body">
+          ${partnerNote ? `<p style="margin-bottom:0.75rem;color:var(--gold);font-style:italic;">${partnerNote}</p>` : ''}
+          <p>A score of <strong>${total}</strong> out of 39 does not currently indicate a significant level of depression. This is a positive result — it suggests that ${subjectHe} ${subjectHe === 'you' ? 'are' : 'is'} not showing the pattern of symptoms associated with paternal postpartum depression at this time.</p>
+          <br>
+          <p>However, symptoms can emerge or worsen over the first 12 months postpartum. It is worth returning to this assessment in 4–6 weeks, or sooner if things change.</p>
+        </div>
+      </div>
+
+      <div class="result-block">
+        <div class="result-block-title">WHAT TO DO NOW</div>
+        <div class="action-list">
+          <div class="action-item"><span class="action-num">01</span><span class="action-text">Download the free 7 Signs guide — understand what to watch for, even when things seem okay right now.</span></div>
+          <div class="action-item"><span class="action-num">02</span><span class="action-text">Revisit this assessment in 4–6 weeks. Paternal PPD often peaks between 3 and 6 months postpartum.</span></div>
+          <div class="action-item"><span class="action-num">03</span><span class="action-text">If ${subjectHis} mood or behaviour changes significantly, take the assessment again — or speak to a GP.</span></div>
+        </div>
+      </div>
+    `;
+
+    ctaHTML = `
+      <a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide: The 7 Signs →</a>
+      <a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>
+    `;
+
+  } else if (total <= 26) {
+    band      = 'PROBABLE DEPRESSION';
+    bandLabel = 'Score 13–26: Probable depression — professional assessment is recommended';
+    resultTitle = `This Score Indicates <em>Probable Depression.</em>`;
+
+    resultContent = `
+      <div class="result-block">
+        <div class="result-block-title">WHAT THIS MEANS</div>
+        <div class="result-body">
+          ${partnerNote ? `<p style="margin-bottom:0.75rem;color:var(--gold);font-style:italic;">${partnerNote}</p>` : ''}
+          <p>A score of <strong>${total}</strong> out of 39 falls in the range that clinically indicates <strong>probable depression</strong>. According to the validated Gotland Male Depression Scale, a score in this range warrants further professional assessment and should be taken seriously.</p>
+          <br>
+          <p>This does not mean ${subjectHe} ${subjectHe === 'you' ? 'are' : 'is'} broken, failing, or a bad parent. It means ${subjectHis} brain and body are struggling under conditions — hormonal, sleep-related, identity-related — that are genuinely hard. This is clinical. It has a name. It is treatable.</p>
+          <br>
+          <p>The most important thing right now is to take one concrete step. That step is a conversation with a GP.</p>
+        </div>
+      </div>
+
+      <div class="result-block">
+        <div class="result-block-title">WHAT TO DO NOW — IN ORDER</div>
+        <div class="action-list">
+          <div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Book a GP appointment this week.</strong> Say: "I've been struggling since the baby was born and I need to talk about my mental health." Those exact words are enough. A GP has heard them before.</span></div>
+          <div class="action-item"><span class="action-num">02</span><span class="action-text">Download our free guide — it explains what is happening biologically and gives ${subjectHim} language to describe it to a clinician.</span></div>
+          <div class="action-item"><span class="action-num">03</span><span class="action-text">If ${subjectHe === 'you' ? "you're" : "he's"} not ready for the GP yet, read the guide tonight. Then share it with one person ${subjectHe === 'you' ? 'you trust' : 'he trusts'}.</span></div>
+          <div class="action-item"><span class="action-num">04</span><span class="action-text">Consider our full support guide — <em>The New Father's Postpartum Code</em> — which provides a structured framework for the next 90 days.</span></div>
+        </div>
+      </div>
+    `;
+
+    ctaHTML = `
+      <a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide: The 7 Signs →</a>
+      <a href="https://parents2beintl.com/paid-guide" class="cta-secondary">The New Father's Postpartum Code (£47) →</a>
+      <a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>
+    `;
+
+  } else {
+    band      = 'SIGNIFICANT — ACT NOW';
+    bandLabel = 'Score 27–39: Significant depression — professional support is needed';
+    resultTitle = `This Score Is <em>Significant.</em> Please Act Today.`;
+
+    resultContent = `
+      <div class="crisis-box">
+        <div class="crisis-box-title">⚠ IMMEDIATE SUPPORT AVAILABLE</div>
+        <p>If there are any thoughts of self-harm or not wanting to be here, please stop reading and contact support now.<br><br>
+        <strong>Samaritans: 116 123</strong> (free, 24/7, no judgement)<br>
+        <strong>NHS 111</strong> (if you need urgent mental health support)<br>
+        <strong>Your GP</strong> — call first thing tomorrow and say it is urgent.</p>
+      </div>
+
+      <div class="result-block">
+        <div class="result-block-title">WHAT THIS SCORE MEANS</div>
+        <div class="result-body">
+          ${partnerNote ? `<p style="margin-bottom:0.75rem;color:var(--gold);font-style:italic;">${partnerNote}</p>` : ''}
+          <p>A score of <strong>${total}</strong> out of 39 falls in the range that clinically indicates <strong>significant depression requiring professional support</strong>. This is the upper band of the Gotland Male Depression Scale — it means the pattern of symptoms ${subjectHe === 'you' ? 'you are experiencing' : 'you are observing'} is severe enough to warrant prompt professional intervention.</p>
+          <br>
+          <p>This is not a character failing. This is not weakness. This is a clinical condition that responds to treatment. But it does not get better without action — and the longer it goes unaddressed, the harder it becomes for everyone in the family.</p>
+          <br>
+          <p><strong>The most important thing you can do today is one thing: contact a GP.</strong></p>
+        </div>
+      </div>
+
+      <div class="result-block">
+        <div class="result-block-title">WHAT TO DO — TODAY, NOT TOMORROW</div>
+        <div class="action-list">
+          <div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Contact a GP today or tomorrow morning.</strong> Say: "I've completed a validated depression screening and scored in the significant range. I need an urgent appointment." That framing will be heard differently than "I'm feeling a bit low."</span></div>
+          <div class="action-item"><span class="action-num">02</span><span class="action-text">${whoIs === 'partner' ? 'Show him this result if you can. Do not minimise it. Say: "I\'m worried about you and I need you to take this seriously."' : 'Share this result with one person you trust — your partner, a friend, a family member. You do not need to explain everything. Just show them the number.'}</span></div>
+          <div class="action-item"><span class="action-num">03</span><span class="action-text">Download our free guide tonight — it gives you the language to describe what ${subjectHe === 'you' ? "you're" : "he's"} experiencing to a clinician, and confirms you are not alone in this.</span></div>
+          <div class="action-item"><span class="action-num">04</span><span class="action-text">If alcohol or substances are part of the picture, tell the GP. This is important clinical information, not a confession.</span></div>
+        </div>
+      </div>
+    `;
+
+    ctaHTML = `
+      <a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide Now →</a>
+      <a href="https://parents2beintl.com/paid-guide" class="cta-secondary">The New Father's Postpartum Code (£47) →</a>
+      <a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>
+    `;
+  }
+
+  // Inject into DOM
+  document.getElementById('score-number').textContent = total;
+  document.getElementById('score-band').textContent   = band;
+  document.getElementById('score-range').textContent  = bandLabel;
+
+  setTimeout(() => {
+    document.getElementById('score-bar-fill').style.width = Math.min(pct, 100) + '%';
+  }, 100);
+
+  document.getElementById('result-title').innerHTML    = resultTitle;
+  document.getElementById('result-content').innerHTML  = resultContent;
+  document.getElementById('cta-stack').innerHTML       = ctaHTML;
+
+  // Update email capture desc based on who
+  document.getElementById('email-capture-desc').textContent =
+    whoIs === 'father'
+      ? "Enter your email and we'll send you the free guide written for you — plus what to do next based on your score."
+      : "Enter your email and we'll send you the free guide written for partners — plus what to do next based on what you've observed.";
+
+  // Progress = complete
+  document.getElementById('progress-fill').style.width = '100%';
+  document.getElementById('progress-label').textContent = '13 / 13';
+
+  showScreen('screen-results');
+}
+
+// ── EMAIL SUBMIT ──────────────────────────────────────────────────────────────
+function submitEmail() {
+  const email = document.getElementById('email-input').value.trim();
   if (!email || !email.includes('@')) {
-    emailInput.focus();
-    emailInput.style.borderColor = '#c0392b';
-    setTimeout(() => emailInput.style.borderColor = '', 1500);
+    document.getElementById('email-input').style.borderColor = '#e07070';
     return;
   }
 
-  const btn = document.getElementById('btn-email');
-  btn.disabled = true;
-  btn.textContent = 'Sending...';
+  // In production: POST to your Netlify serverless function
+  // which connects to MailerLite — same infrastructure as your quiz.
+  // Payload: { email, score, band, who }
+  const score = answers.reduce((s, v) => s + (v || 0), 0);
+  const band  = score <= 12 ? 'none' : score <= 26 ? 'probable' : 'significant';
 
   fetch('/.netlify/functions/subscribe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, source: 'quiz-result' })
-  })
-  .then(() => {
-    document.getElementById('email-form-wrap').style.display = 'none';
-    document.getElementById('email-success').style.display = 'block';
-    document.querySelector('.skip-link').style.display = 'none';
-    document.getElementById('next-steps').style.display = 'block';
-    emailSubmitted = true;
-  })
-  .catch(() => {
-    document.getElementById('email-form-wrap').style.display = 'none';
-    document.getElementById('email-success').style.display = 'block';
-    document.querySelector('.skip-link').style.display = 'none';
-    document.getElementById('next-steps').style.display = 'block';
+    body: JSON.stringify({ email, score, band, who: whoIs })
+  }).catch(() => {
+    // Silent fail — confirmation still shows
   });
-}
 
-function skipEmail() {
-  document.getElementById('email-capture-block').style.display = 'none';
-  document.querySelector('.skip-link').style.display = 'none';
-  document.getElementById('next-steps').style.display = 'block';
+  document.querySelector('.email-capture').innerHTML = `
+    <div style="text-align:center;padding:1rem 0;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.5rem;">CONFIRMED</div>
+      <p style="font-size:0.78rem;color:rgba(245,245,245,0.6);line-height:1.7;">
+        Guide sent to <strong style="color:var(--white)">${email}</strong>.
+        Check your inbox — and your spam folder if it doesn't arrive within 5 minutes.
+      </p>
+    </div>
+  `;
 }
-
-function retakeQuiz() {
-  currentQ = 0;
-  answers = new Array(questions.length).fill(null);
-  emailSubmitted = false;
-  startQuiz();
-}
-
-// Allow pressing Enter on email field
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('email-input').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') submitEmail();
-  });
-});
 </script>
+
 </body>
 </html>
+
