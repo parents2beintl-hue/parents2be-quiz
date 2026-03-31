@@ -1175,11 +1175,24 @@ function submitEmail() {
   for (var i = 0; i < answers.length; i++) { total += (answers[i] || 0); }
   var band = total <= 12 ? 'none' : total <= 26 ? 'probable' : 'significant';
 
-  // POST to Netlify function — silent fail if not deployed yet
-  fetch('/.netlify/functions/subscribe', {
+ // POST directly to MailerLite API
+  var groupId = whoIs === 'father' ? '183382900380534401' : '183382916886169384';
+  fetch('https://connect.mailerlite.com/api/subscribers', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, score: total, band: band, who: whoIs })
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMWY2ZmYxNWIyNTBlODc1Y2Q2YjM2MmQwOGUwMDljOTg2ODBmOGZjNGUwNDc5MjUxMTY4MGYwMjc0YTllZmNhYjEyN2Q5ZDc2ZmVhMDIxN2YiLCJpYXQiOjE3NzQ4OTE4ODkuODc1NTg1LCJuYmYiOjE3NzQ4OTE4ODkuODc1NTg5LCJleHAiOjQ5MzA1NjU0ODkuODY5NzQ1LCJzdWIiOiIyMTUxNDMzIiwic2NvcGVzIjpbXX0.r1bLlCohgLsaMkpErDaPf1dwHN8T3OtzZn3_wCHpuYvWb6nkKW2IXBG2v2aAX0H2mch0OMy2QrBhyLmLUq5Xf4uh4SVM98hfmQLTvOfV2E8bZ65HJ0A7h68zzfhf6zSzecl-NHs-mxqkObAmuIrEbfZEdsAlME_mx-PaVMcy6rGk9fGNmeOTq-dAFQN_2Qv0yhbQkgUPBAVHj00ipgd29cfEmNHAvLxl2WsT9Pgp_6c48Pv7e8P13raW59l3UxfGDG1kJBYRLasa9BkA6TJJ8NgKc4B5P4DkPKlyPEdupLfx1dVllF9TNggSxSc-ktLB52UImSOTKBP_xrW_u7y7Fz68xaklp9DvmEWYamTnI-WkT5mmxgBjy0nuY-gMlIRbqOdUhMMSpQhwaiqvYFFcqu4W9RyuBM-qSlIkBH1RzgNJx_UzSovWci_CgMhM_NWowRiiG-AAP7Ai61oUSzsS_003nT3vnXJCb1S-yO7RrB3gAyiGm11NbAPOaoeAXXLuADJAWqIMhej8x2jG85Kb6KDjV5r66goY3krWCsy0pJQMCornVcBHawk7hxdTVIHuHxm-6MNImL2Xqs-R_k0l3R61TxEaGWE0eHzRpBQdQqAYMnkJiUmJCv36Ji9NQ8uSP15_frqwSc6D7qFcHtITcLbX_6qRb5GLAnok8oluEqw',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email,
+      groups: [groupId],
+      fields: {
+        assessment_score: total,
+        assessment_band: band,
+        assessment_who: whoIs
+      }
+    })
   }).catch(function() {});
 
   // Show confirmation regardless
