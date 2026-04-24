@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paternal Postpartum Depression Assessment | Parents2Be International</title>
 <meta name="description" content="A clinically validated screening tool for paternal postpartum depression. Free, anonymous, evidence-based.">
+
+<!-- GA4 — fires pageview and completion events -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E0KTPZJX8Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-E0KTPZJX8Z');
+</script>
+
 <style>
   :root {
     --black: #000000;
@@ -12,7 +22,7 @@
     --gold-light: #e8c97a;
     --gold-dim: rgba(201,168,76,0.12);
     --white: #F5F5F5;
-    --muted: rgba(245,245,245,0.5);
+    --muted: rgba(245,245,245,0.72);
     --border: rgba(201,168,76,0.25);
   }
 
@@ -22,30 +32,29 @@
     background: #000;
     color: #F5F5F5;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 18px;
+    line-height: 1.7;
     min-height: 100vh;
   }
 
+  /* ── PROGRESS ── */
   #progress-wrap {
     position: sticky;
     top: 0;
     z-index: 100;
     background: #000;
     border-bottom: 1px solid var(--border);
-    padding: 0.65rem 1.25rem;
+    padding: 0.75rem 1.25rem;
     display: flex;
     align-items: center;
     gap: 1rem;
   }
-
   #progress-track {
     flex: 1;
-    height: 2px;
+    height: 3px;
     background: rgba(201,168,76,0.15);
     border-radius: 2px;
   }
-
   #progress-fill {
     height: 100%;
     background: var(--gold);
@@ -53,10 +62,9 @@
     width: 0%;
     transition: width 0.5s ease;
   }
-
   #progress-label {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.15em;
     color: var(--gold);
     white-space: nowrap;
@@ -64,6 +72,7 @@
     text-align: right;
   }
 
+  /* ── LAYOUT ── */
   .wrap {
     max-width: 600px;
     margin: 0 auto;
@@ -78,9 +87,10 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  /* ── INTRO ── */
   .brand-line {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.22em;
     color: var(--gold);
     text-transform: uppercase;
@@ -90,7 +100,6 @@
     align-items: center;
     gap: 0.75rem;
   }
-
   .brand-line::after {
     content: '';
     flex: 1;
@@ -106,7 +115,6 @@
     margin-bottom: 1.25rem;
     color: #F5F5F5;
   }
-
   h1 em { color: var(--gold); font-style: italic; }
 
   h2 {
@@ -116,20 +124,19 @@
     line-height: 1.2;
     margin-bottom: 1rem;
   }
-
   h2 em { color: var(--gold); font-style: italic; }
 
   .body-text {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.88rem;
-    color: rgba(245,245,245,0.65);
+    font-size: 1rem;
+    color: var(--muted);
     line-height: 1.75;
     margin-bottom: 1.5rem;
   }
 
   .who-label {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.18em;
     color: var(--gold);
     margin-bottom: 0.75rem;
@@ -150,20 +157,18 @@
     border: 1px solid var(--border);
     color: #F5F5F5;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.82rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s;
     text-align: center;
-    border-radius: 1px;
+    border-radius: 2px;
   }
-
   .who-btn small {
     display: block;
-    font-size: 0.65rem;
+    font-size: 0.82rem;
     color: var(--muted);
     margin-top: 0.3rem;
   }
-
   .who-btn:hover, .who-btn.selected {
     background: rgba(201,168,76,0.2);
     border-color: var(--gold);
@@ -172,20 +177,19 @@
 
   .btn-start {
     width: 100%;
-    padding: 1rem;
+    padding: 1.1rem;
     background: var(--gold);
     color: #000;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
     transition: background 0.2s;
-    border-radius: 1px;
+    border-radius: 2px;
     display: none;
   }
-
   .btn-start:hover { background: var(--gold-light); }
   .btn-start.show  { display: block; }
 
@@ -197,59 +201,53 @@
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
   }
-
   .trust-item {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.58rem;
+    font-size: 0.72rem;
     letter-spacing: 0.1em;
-    color: rgba(201,168,76,0.5);
+    color: rgba(201,168,76,0.65);
   }
-
   .trust-item::before { content: '✓ '; color: var(--gold); }
 
+  /* ── QUESTION SCREEN ── */
   .q-meta {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.58rem;
+    font-size: 0.72rem;
     letter-spacing: 0.18em;
-    color: rgba(201,168,76,0.4);
+    color: rgba(201,168,76,0.55);
     padding-top: 2rem;
     margin-bottom: 0.5rem;
   }
-
   .q-instruction {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.78rem;
+    font-size: 1rem;
     color: var(--muted);
     margin-bottom: 1.75rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(201,168,76,0.12);
     line-height: 1.6;
   }
-
   .q-instruction em { color: var(--gold); font-style: normal; font-weight: bold; }
 
   .q-number {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.58rem;
+    font-size: 0.72rem;
     letter-spacing: 0.2em;
-    color: rgba(201,168,76,0.4);
+    color: rgba(201,168,76,0.55);
     margin-bottom: 0.5rem;
   }
-
   .q-text {
     font-family: Georgia, serif;
     font-size: clamp(1.1rem, 3.5vw, 1.5rem);
     font-weight: normal;
-    line-height: 1.3;
+    line-height: 1.4;
     color: #F5F5F5;
     margin-bottom: 2rem;
     min-height: 2.5rem;
   }
 
   .options { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 2.5rem; }
-
   .opt { position: relative; }
-
   .opt input {
     position: absolute;
     opacity: 0;
@@ -257,74 +255,51 @@
     height: 0;
     pointer-events: none;
   }
-
   .opt label {
     display: flex;
     align-items: center;
     gap: 0.9rem;
-    padding: 0.9rem 1rem;
+    padding: 1rem 1.1rem;
     border: 1px solid rgba(201,168,76,0.18);
     background: rgba(201,168,76,0.02);
     cursor: pointer;
     transition: all 0.2s;
-    border-radius: 1px;
+    border-radius: 2px;
     user-select: none;
+    min-height: 52px;
   }
-
   .opt-dot {
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    border: 1px solid rgba(201,168,76,0.4);
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid rgba(201,168,76,0.4);
     border-radius: 50%;
     position: relative;
     transition: border-color 0.2s;
   }
-
   .opt-dot::after {
     content: '';
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%,-50%) scale(0);
-    width: 8px; height: 8px;
+    width: 10px; height: 10px;
     background: var(--gold);
     border-radius: 50%;
     transition: transform 0.15s ease;
   }
-
   .opt-label-text {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.84rem;
-    color: rgba(245,245,245,0.7);
+    font-size: 1rem;
+    color: var(--muted);
     line-height: 1.4;
     flex: 1;
     transition: color 0.2s;
   }
-
-  .opt-score {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.55rem;
-    color: rgba(201,168,76,0.2);
-    letter-spacing: 0.1em;
-    transition: color 0.2s;
-    white-space: nowrap;
-  }
-
-  .opt input:checked + label {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.1);
-  }
-
+  .opt input:checked + label { border-color: var(--gold); background: rgba(201,168,76,0.1); }
   .opt input:checked + label .opt-dot { border-color: var(--gold); }
   .opt input:checked + label .opt-dot::after { transform: translate(-50%,-50%) scale(1); }
   .opt input:checked + label .opt-label-text { color: #F5F5F5; }
-  .opt input:checked + label .opt-score { color: var(--gold); }
-
-  .opt label:hover {
-    border-color: rgba(201,168,76,0.4);
-    background: rgba(201,168,76,0.05);
-  }
-
+  .opt label:hover { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.05); }
   .opt label:hover .opt-label-text { color: #F5F5F5; }
 
   .q-nav {
@@ -333,54 +308,46 @@
     padding-top: 1rem;
     border-top: 1px solid var(--border);
   }
-
   .btn-back {
-    padding: 0.85rem 1.25rem;
+    padding: 0.9rem 1.25rem;
     background: transparent;
     border: 1px solid var(--border);
     color: var(--muted);
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.12em;
     cursor: pointer;
     transition: all 0.2s;
-    border-radius: 1px;
+    border-radius: 2px;
   }
-
   .btn-back:hover { border-color: var(--gold); color: var(--gold); }
 
   .btn-next {
     flex: 1;
-    padding: 0.85rem;
+    padding: 0.9rem;
     background: rgba(201,168,76,0.06);
     border: 1px solid var(--border);
     color: var(--muted);
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.2s;
-    border-radius: 1px;
+    border-radius: 2px;
   }
-
-  .btn-next.ready {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: #000;
-  }
-
+  .btn-next.ready { background: var(--gold); border-color: var(--gold); color: #000; }
   .btn-next.ready:hover { background: var(--gold-light); }
 
+  /* ── RESULTS SCREEN ── */
   .result-eyebrow {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.58rem;
+    font-size: 0.75rem;
     letter-spacing: 0.2em;
     color: var(--gold);
     padding-top: 2.5rem;
     margin-bottom: 1.25rem;
   }
-
   .score-display {
     display: flex;
     align-items: center;
@@ -390,7 +357,6 @@
     border: 1px solid var(--border);
     margin: 1.5rem 0;
   }
-
   .score-number {
     font-family: Georgia, serif;
     font-size: 3.5rem;
@@ -398,31 +364,28 @@
     line-height: 1;
     min-width: 3rem;
   }
-
   .score-band {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     letter-spacing: 0.12em;
     color: var(--gold);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.35rem;
   }
-
   .score-range {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.9rem;
     color: var(--muted);
+    line-height: 1.5;
   }
 
-  .score-bar-wrap { margin: 1rem 0 1.5rem; }
-
+  .score-bar-wrap { margin: 1rem 0 1.75rem; }
   .score-bar-track {
     height: 6px;
     background: rgba(201,168,76,0.1);
     border-radius: 3px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
     position: relative;
   }
-
   .score-bar-fill {
     height: 100%;
     background: var(--gold);
@@ -431,32 +394,29 @@
     transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
     position: relative;
   }
-
   .score-bar-fill::after {
     content: '';
     position: absolute;
     right: -5px; top: 50%;
     transform: translateY(-50%);
-    width: 12px; height: 12px;
+    width: 14px; height: 14px;
     background: var(--gold);
     border-radius: 50%;
     border: 2px solid #000;
   }
-
   .score-bar-labels {
     display: flex;
     justify-content: space-between;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.52rem;
-    color: rgba(201,168,76,0.3);
+    font-size: 0.65rem;
+    color: rgba(201,168,76,0.45);
     letter-spacing: 0.06em;
   }
 
   .result-block { margin-bottom: 1.75rem; }
-
   .result-block-title {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.58rem;
+    font-size: 0.72rem;
     letter-spacing: 0.18em;
     color: var(--gold);
     text-transform: uppercase;
@@ -464,199 +424,191 @@
     padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(201,168,76,0.15);
   }
-
   .result-body {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.85rem;
-    color: rgba(245,245,245,0.7);
+    font-size: 1rem;
+    color: var(--muted);
     line-height: 1.75;
   }
-
   .result-body strong { color: #F5F5F5; }
-  .result-body p { margin-bottom: 0.75rem; }
+  .result-body p { margin-bottom: 0.85rem; }
 
   .action-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
-
   .action-item {
     display: flex;
     gap: 0.75rem;
-    padding: 0.8rem 0.9rem;
+    padding: 0.9rem 1rem;
     background: rgba(201,168,76,0.04);
     border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 1px;
+    border-radius: 2px;
   }
-
   .action-num {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
+    font-size: 0.72rem;
     color: var(--gold);
-    min-width: 1.2rem;
+    min-width: 1.4rem;
     padding-top: 0.15rem;
   }
-
   .action-text {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.8rem;
-    color: rgba(245,245,245,0.75);
-    line-height: 1.55;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.6;
   }
-
   .action-text strong { color: #F5F5F5; }
 
   .crisis-box {
     background: rgba(180,60,60,0.08);
-    border: 1px solid rgba(180,60,60,0.35);
-    padding: 1rem 1.1rem;
+    border: 1px solid rgba(180,60,60,0.45);
+    padding: 1.1rem 1.25rem;
     margin: 1.5rem 0;
+    border-radius: 2px;
   }
-
   .crisis-title {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.12em;
     color: #e07070;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.65rem;
   }
-
   .crisis-box p {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.8rem;
-    color: rgba(245,245,245,0.7);
-    line-height: 1.65;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
   }
-
   .crisis-box strong { color: #F5F5F5; }
 
-  .email-capture {
-    background: rgba(201,168,76,0.05);
-    border: 1px solid var(--border);
-    padding: 1.25rem;
-    margin: 1.75rem 0;
-  }
-
-  .email-capture-title {
+  /* ── CTA STACK ── */
+  .cta-stack { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 2rem; }
+  .cta-primary {
+    display: block;
+    padding: 1.1rem;
+    background: var(--gold);
+    color: #000;
+    text-decoration: none;
+    text-align: center;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: background 0.2s;
+    border-radius: 2px;
+  }
+  .cta-primary:hover { background: var(--gold-light); }
+  .cta-secondary {
+    display: block;
+    padding: 0.9rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+  .cta-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── EMAIL CAPTURE (optional, below CTA) ── */
+  .email-capture-wrap {
+    margin-top: 2.5rem;
+    padding: 1.4rem;
+    border: 1px solid var(--border);
+    background: rgba(201,168,76,0.04);
+    border-radius: 2px;
+  }
+  .email-capture-label {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.72rem;
     letter-spacing: 0.18em;
     color: var(--gold);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+    display: block;
   }
-
-  .email-capture p {
+  .email-capture-desc {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.76rem;
+    font-size: 0.95rem;
     color: var(--muted);
+    line-height: 1.65;
     margin-bottom: 1rem;
-    line-height: 1.6;
   }
-
-  .email-row { display: flex; gap: 0.5rem; }
-
+  .email-capture-desc strong { color: #F5F5F5; }
+  .email-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
   .email-input {
     flex: 1;
-    padding: 0.8rem 0.9rem;
+    min-width: 200px;
+    padding: 0.9rem 1rem;
     background: rgba(201,168,76,0.03);
-    border: 1px solid rgba(201,168,76,0.2);
+    border: 1px solid rgba(201,168,76,0.3);
     color: #F5F5F5;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.82rem;
+    font-size: 1rem;
     outline: none;
-    border-radius: 1px;
-    transition: border-color 0.2s;
+    border-radius: 2px;
+    transition: border-color 0.2s, box-shadow 0.2s;
     -webkit-appearance: none;
   }
-
-  .email-input:focus { border-color: var(--gold); }
-  .email-input::placeholder { color: rgba(245,245,245,0.2); }
-
+  .email-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
+  .email-input::placeholder { color: rgba(245,245,245,0.28); }
+  .email-input.error { border-color: #e07070; }
   .email-submit {
-    padding: 0.8rem 1.1rem;
+    padding: 0.9rem 1.2rem;
     background: var(--gold);
     color: #000;
     border: none;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
     cursor: pointer;
     transition: background 0.2s;
     white-space: nowrap;
-    border-radius: 1px;
+    border-radius: 2px;
     -webkit-appearance: none;
   }
-
   .email-submit:hover { background: var(--gold-light); }
-
-  .privacy-note {
+  .email-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .email-error-msg {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.62rem;
-    color: rgba(245,245,245,0.22);
-    margin-top: 0.65rem;
-    line-height: 1.5;
-  }
-
-  .cta-stack { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 2rem; }
-
-  .cta-primary {
-    display: block;
-    padding: 1rem;
-    background: var(--gold);
-    color: #000;
-    text-decoration: none;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    transition: background 0.2s;
-    border-radius: 1px;
-  }
-
-  .cta-primary:hover { background: var(--gold-light); }
-
-  .cta-secondary {
-    display: block;
-    padding: 0.85rem;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: rgba(245,245,245,0.55);
-    text-decoration: none;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: all 0.2s;
-    border-radius: 1px;
-  }
-
-  .cta-secondary:hover { border-color: var(--gold); color: var(--gold); }
-
-  .gate-link {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.62rem;
-    color: rgba(245,245,245,0.35);
-    text-align: center;
+    font-size: 0.88rem;
+    color: #e07070;
     margin-top: 0.5rem;
-    line-height: 1.6;
+    display: none;
+  }
+  .email-error-msg.show { display: block; }
+  .email-privacy {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    color: rgba(245,245,245,0.35);
+    margin-top: 0.75rem;
+    line-height: 1.55;
   }
 
-  .gate-link a {
-    color: rgba(201,168,76,0.7);
-    text-decoration: underline;
-  }
-
+  /* ── DISCLAIMER ── */
   .disclaimer {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.65rem;
-    color: rgba(245,245,245,0.22);
-    line-height: 1.65;
+    font-size: 0.82rem;
+    color: rgba(245,245,245,0.35);
+    line-height: 1.7;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(201,168,76,0.1);
     margin-top: 2rem;
   }
+  .disclaimer strong { color: rgba(245,245,245,0.6); }
 
-  .disclaimer strong { color: rgba(245,245,245,0.5); }
+  .partner-note {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1rem;
+    margin-bottom: 0.85rem;
+    line-height: 1.6;
+  }
 
+  /* ── FOOTER ── */
   footer {
     max-width: 600px;
     margin: 0 auto;
@@ -667,41 +619,26 @@
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-
   footer span {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.55rem;
+    font-size: 0.7rem;
     letter-spacing: 0.1em;
-    color: rgba(201,168,76,0.3);
-  }
-
-  .partner-note {
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    color: var(--gold);
-    font-size: 0.82rem;
-    margin-bottom: 0.75rem;
-    line-height: 1.6;
-  }
-
-  hr.dim {
-    border: none;
-    border-top: 1px solid rgba(201,168,76,0.12);
-    margin: 1.5rem 0;
+    color: rgba(201,168,76,0.35);
   }
 </style>
 </head>
 <body>
 
-<div id="progress-wrap">
+<div id="progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="13" aria-valuenow="0" aria-label="Assessment progress">
   <div id="progress-track"><div id="progress-fill"></div></div>
-  <div id="progress-label">0 / 13</div>
+  <div id="progress-label" aria-live="polite">0 / 13</div>
 </div>
 
 <div class="wrap">
 
-  <div id="screen-intro" class="screen active">
-    <div class="brand-line">Parents2Be International</div>
+  <!-- ══ INTRO ══ -->
+  <div id="screen-intro" class="screen active" role="main">
+    <div class="brand-line" aria-hidden="true">Parents2Be International</div>
     <h1>Is He Experiencing<br>Paternal Postpartum<br><em>Depression?</em></h1>
     <p class="body-text">
       1 in 10 new fathers experience postnatal depression. Over 80% go undiagnosed —
@@ -711,52 +648,56 @@
       whose symptoms present differently from women. It takes under 3 minutes.
       Your responses are not stored.
     </p>
-    <p class="who-label">WHO IS COMPLETING THIS?</p>
-    <div class="who-wrap">
-      <button class="who-btn" id="btn-partner" onclick="selectWho('partner')">
+    <p class="who-label" id="who-label">WHO IS COMPLETING THIS?</p>
+    <div class="who-wrap" role="group" aria-labelledby="who-label">
+      <button class="who-btn" id="btn-partner" onclick="selectWho('partner')" aria-pressed="false">
         I am his partner
         <small>Answering about what I have observed</small>
       </button>
-      <button class="who-btn" id="btn-father" onclick="selectWho('father')">
+      <button class="who-btn" id="btn-father" onclick="selectWho('father')" aria-pressed="false">
         I am the father
         <small>Answering about my own experience</small>
       </button>
     </div>
     <button class="btn-start" id="btn-start" onclick="startAssessment()">Begin Assessment &rarr;</button>
-    <div class="trust-row">
+    <div class="trust-row" aria-label="Trust indicators">
       <span class="trust-item">Anonymous — no data stored</span>
       <span class="trust-item">Clinically validated</span>
       <span class="trust-item">Under 3 minutes</span>
-      <span class="trust-item">UK-focused</span>
+      <span class="trust-item">No email required</span>
     </div>
   </div>
 
-  <div id="screen-question" class="screen">
-    <div class="q-meta">GOTLAND MALE DEPRESSION SCALE &middot; PARENTS2BE.INTL</div>
+  <!-- ══ QUESTION ══ -->
+  <div id="screen-question" class="screen" role="main">
+    <div class="q-meta" aria-hidden="true">GOTLAND MALE DEPRESSION SCALE &middot; PARENTS2BE.INTL</div>
     <p class="q-instruction">
       Think about the last two weeks. For each statement, choose the response
       that best describes how <em id="instr-subject">he has been</em>.
     </p>
-    <div class="q-number" id="q-number">QUESTION 1 OF 13</div>
-    <div class="q-text" id="q-text"></div>
-    <div class="options" id="options"></div>
+    <div class="q-number" id="q-number" aria-live="polite">QUESTION 1 OF 13</div>
+    <div class="q-text" id="q-text" aria-live="polite"></div>
+    <div class="options" id="options" role="radiogroup" aria-label="Response options"></div>
     <div class="q-nav">
-      <button class="btn-back" id="btn-back" onclick="prevQ()">&#8592; Back</button>
-      <button class="btn-next" id="btn-next" onclick="nextQ()">Next &rarr;</button>
+      <button class="btn-back" id="btn-back" onclick="prevQ()" aria-label="Previous question">&#8592; Back</button>
+      <button class="btn-next" id="btn-next" onclick="nextQ()" aria-label="Next question">Next &rarr;</button>
     </div>
   </div>
 
-  <div id="screen-results" class="screen">
-    <div class="result-eyebrow">ASSESSMENT COMPLETE &middot; PARENTS2BE.INTL</div>
+  <!-- ══ RESULTS — score shows immediately, no email required ══ -->
+  <div id="screen-results" class="screen" role="main">
+    <div class="result-eyebrow" aria-hidden="true">ASSESSMENT COMPLETE &middot; PARENTS2BE.INTL</div>
     <h2 id="result-title"></h2>
-    <div class="score-display">
+
+    <div class="score-display" role="region" aria-label="Your score">
       <div class="score-number" id="score-number">0</div>
       <div>
         <div class="score-band" id="score-band"></div>
         <div class="score-range" id="score-range"></div>
       </div>
     </div>
-    <div class="score-bar-wrap">
+
+    <div class="score-bar-wrap" aria-hidden="true">
       <div class="score-bar-track">
         <div class="score-bar-fill" id="score-bar-fill"></div>
       </div>
@@ -767,17 +708,37 @@
         <span>39</span>
       </div>
     </div>
+
+    <!-- Clinical content block -->
     <div id="result-content"></div>
-    <div class="email-capture" id="email-capture">
-      <div class="email-capture-title">RECEIVE YOUR FREE GUIDE</div>
-      <p id="email-desc">Enter your email and we will send you the free guide based on your results.</p>
-      <div class="email-row">
-        <input type="email" class="email-input" id="email-input" placeholder="Your email address">
-        <button class="email-submit" id="email-submit-btn" onclick="submitEmail()">Send &rarr;</button>
-      </div>
-      <p class="privacy-note">Your email is used only to send your guide. Assessment responses are never linked to your email. Unsubscribe anytime.</p>
-    </div>
+
+    <!-- Primary CTA stack — no email wall -->
     <div class="cta-stack" id="cta-stack"></div>
+
+    <!-- Email capture — optional, positioned as added value -->
+    <div class="email-capture-wrap" id="email-capture-wrap">
+      <span class="email-capture-label" id="email-capture-label">GET THE FREE GUIDE</span>
+      <p class="email-capture-desc" id="email-capture-desc">
+        The <strong>7 Signs of Paternal PPD</strong> guide explains what is happening and gives the language to describe it to a GP.
+        Enter your email and we will send it now. No account. No commitment.
+      </p>
+      <div class="email-row">
+        <input
+          type="email"
+          id="email-input"
+          class="email-input"
+          placeholder="Your email address"
+          autocomplete="email"
+          aria-label="Email address for free guide"
+        >
+        <button class="email-submit" id="email-submit-btn" onclick="submitEmail()">Send Guide &rarr;</button>
+      </div>
+      <div class="email-error-msg" id="email-error" role="alert">Please enter a valid email address.</div>
+      <p class="email-privacy">
+        Used only to send your guide. Assessment responses are never linked to your email. Unsubscribe anytime.
+      </p>
+    </div>
+
     <p class="disclaimer">
       This assessment is for informational purposes only and does not constitute a clinical diagnosis.
       The Gotland Male Depression Scale (Zierau et al., 2002) is a validated screening instrument.
@@ -787,7 +748,7 @@
     </p>
   </div>
 
-</div>
+</div><!-- /wrap -->
 
 <footer>
   <span>&copy; Parents2Be International</span>
@@ -796,10 +757,24 @@
 </footer>
 
 <script>
-var whoIs   = null;
+/* ═══════════════════════════
+   CONFIG
+═══════════════════════════ */
+var ML_API_KEY       = 'eyJ0eXAiOwk7hxdTVIHuHxm-6MNImL2Xqs-R_k0l3R61TxEaGWE0eHzRpBQdQqAYMnkJiUmJCv36Ji9NQ8uSP15_frqwSc6D7qFcHtITcLbX_6qRb5GLAnok8oluEqw';
+var ML_GROUP_FATHER  = '183382900380534401';
+var ML_GROUP_PARTNER = '183382916886169384';
+
+/* ═══════════════════════════
+   STATE
+═══════════════════════════ */
+var whoIs    = null;
 var currentQ = 0;
 var answers  = [null,null,null,null,null,null,null,null,null,null,null,null,null];
+var resultTotal = 0;
 
+/* ═══════════════════════════
+   QUESTIONS
+═══════════════════════════ */
 var QUESTIONS = [
   { f: "I have a lower stress threshold than usual — I feel more stressed out than normal.", p: "He seems to have a lower stress threshold than usual — he appears more stressed out than normal." },
   { f: "I have been more aggressive, reactive, and I find it harder to control myself.", p: "He has been more aggressive, outward-reacting, and appears to have difficulty keeping himself in control." },
@@ -823,6 +798,9 @@ var OPTS = [
   { label: "Extremely so",   score: 3 }
 ];
 
+/* ═══════════════════════════
+   NAVIGATION
+═══════════════════════════ */
 function showScreen(id) {
   var screens = document.querySelectorAll('.screen');
   for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); }
@@ -834,12 +812,15 @@ function setProgress(n) {
   var pct = n <= 0 ? 0 : Math.round((n / 13) * 100);
   document.getElementById('progress-fill').style.width = pct + '%';
   document.getElementById('progress-label').textContent = (n < 0 ? 0 : n) + ' / 13';
+  document.getElementById('progress-wrap').setAttribute('aria-valuenow', n < 0 ? 0 : n);
 }
 
 function selectWho(who) {
   whoIs = who;
   document.getElementById('btn-father').classList.toggle('selected', who === 'father');
   document.getElementById('btn-partner').classList.toggle('selected', who === 'partner');
+  document.getElementById('btn-father').setAttribute('aria-pressed', who === 'father' ? 'true' : 'false');
+  document.getElementById('btn-partner').setAttribute('aria-pressed', who === 'partner' ? 'true' : 'false');
   document.getElementById('btn-start').classList.add('show');
   document.getElementById('instr-subject').textContent = who === 'father' ? 'you have been' : 'he has been';
 }
@@ -849,6 +830,8 @@ function startAssessment() {
   showScreen('screen-question');
   renderQ(0);
   setProgress(0);
+  // GA4: assessment started
+  gtag('event', 'assessment_started', { who: whoIs });
 }
 
 function renderQ(index) {
@@ -871,24 +854,23 @@ function renderQ(index) {
     if (answers[index] === opt.score) input.checked = true;
     var label = document.createElement('label');
     label.htmlFor = id;
-    var dot = document.createElement('span'); dot.className = 'opt-dot';
+    var dot = document.createElement('span'); dot.className = 'opt-dot'; dot.setAttribute('aria-hidden','true');
     var txt = document.createElement('span'); txt.className = 'opt-label-text'; txt.textContent = opt.label;
-    var sc  = document.createElement('span'); sc.className  = 'opt-score';      sc.textContent  = opt.score + '/3';
-    label.appendChild(dot); label.appendChild(txt); label.appendChild(sc);
+    label.appendChild(dot); label.appendChild(txt);
     div.appendChild(input); div.appendChild(label);
     list.appendChild(div);
     input.addEventListener('change', function() {
       answers[index] = parseInt(this.value);
       var nb = document.getElementById('btn-next');
       nb.classList.add('ready');
-      nb.textContent = index < 12 ? 'Next \u2192' : 'See Results \u2192';
+      nb.textContent = index < 12 ? 'Next \u2192' : 'See My Results \u2192';
     });
   });
   var back = document.getElementById('btn-back');
   back.style.display = index === 0 ? 'none' : 'block';
   var nb = document.getElementById('btn-next');
   nb.classList.toggle('ready', answers[index] !== null);
-  nb.textContent = index < 12 ? 'Next \u2192' : 'See Results \u2192';
+  nb.textContent = index < 12 ? 'Next \u2192' : 'See My Results \u2192';
   setProgress(index);
   window.scrollTo(0, 0);
 }
@@ -902,9 +884,13 @@ function prevQ() {
   if (currentQ > 0) { renderQ(currentQ - 1); } else { showScreen('screen-intro'); setProgress(-1); }
 }
 
+/* ═══════════════════════════
+   RESULTS — immediate, no email wall
+═══════════════════════════ */
 function showResults() {
   var total = 0;
   for (var i = 0; i < answers.length; i++) { total += (answers[i] || 0); }
+  resultTotal = total;
   var pct = Math.min((total / 39) * 100, 100);
 
   var isPartner = whoIs === 'partner';
@@ -919,72 +905,71 @@ function showResults() {
 
   var band, bandLabel, titleHTML, contentHTML, ctaHTML;
 
+  /* ── 0–12 ── */
   if (total <= 12) {
     band      = 'NO SIGNIFICANT INDICATION';
-    bandLabel = 'Score 0\u201312: No significant indication of depression at this time';
+    bandLabel = 'Score 0\u201312 — No significant indication of depression at this time';
     titleHTML = 'At This Score, <em>No Significant Indication</em> Is Present.';
     contentHTML =
       '<div class="result-block"><div class="result-block-title">WHAT THIS MEANS</div><div class="result-body">' + pNote +
       '<p>A score of <strong>' + total + '</strong> out of 39 does not currently indicate a significant level of depression. This is a positive result. It suggests that ' + he + ' ' + (he === 'you' ? 'are' : 'is') + ' not showing the pattern of symptoms associated with paternal postpartum depression right now.</p>' +
-      '<p>Symptoms can emerge or worsen over the first 12 months postpartum. It is worth returning to this assessment in 4\u20136 weeks, or sooner if things change.</p></div></div>' +
+      '<p>Symptoms can emerge or worsen across the first 12 months postpartum. It is worth returning to this assessment in 4\u20136 weeks, or sooner if things change.</p>' +
+      '</div></div>' +
       '<div class="result-block"><div class="result-block-title">WHAT TO DO NOW</div><div class="action-list">' +
-      '<div class="action-item"><span class="action-num">01</span><span class="action-text">Download the free 7 Signs guide \u2014 understand what to watch for even when things seem okay right now.</span></div>' +
-      '<div class="action-item"><span class="action-num">02</span><span class="action-text">Revisit this assessment in 4\u20136 weeks. Paternal PPD often peaks between 3 and 6 months postpartum.</span></div>' +
+      '<div class="action-item"><span class="action-num">01</span><span class="action-text">Download the free 7 Signs guide — understand what to watch for even when things seem okay right now.</span></div>' +
+      '<div class="action-item"><span class="action-num">02</span><span class="action-text">Return to this assessment in 4\u20136 weeks. Paternal PPD often peaks between 3 and 6 months postpartum.</span></div>' +
       '<div class="action-item"><span class="action-num">03</span><span class="action-text">If ' + his + ' mood or behaviour changes significantly, take the assessment again or speak to a GP.</span></div>' +
       '</div></div>';
     ctaHTML =
       '<a href="https://subscribepage.io/W3WGYX" class="cta-primary">Download Free Guide: The 7 Signs &rarr;</a>' +
-      '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/dd7e3029-babe-4365-87ec-953b82d28f16" class="cta-secondary">Paternal PPD Recovery Toolkit &mdash; &pound;97 &rarr;</a>' +
-      '<a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>';
+      '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/dd7e3029-babe-4365-87ec-953b82d28f16" class="cta-secondary">90-Day Recovery Toolkit &mdash; &pound;97 &rarr;</a>' +
+      '<a href="https://parents2beintl.com" class="cta-secondary">Return to Parents2Be International &rarr;</a>';
 
+  /* ── 13–26 ── */
   } else if (total <= 26) {
     band      = 'PROBABLE DEPRESSION';
-    bandLabel = 'Score 13\u201326: Probable depression \u2014 professional assessment is recommended';
+    bandLabel = 'Score 13\u201326 — Probable depression. Professional assessment is recommended.';
     titleHTML = 'This Score Indicates <em>Probable Depression.</em>';
     contentHTML =
       '<div class="result-block"><div class="result-block-title">WHAT THIS MEANS</div><div class="result-body">' + pNote +
-      '<p>A score of <strong>' + total + '</strong> out of 39 falls in the range that clinically indicates <strong>probable depression</strong>. According to the validated Gotland Male Depression Scale, this score warrants professional assessment and should not be ignored.</p>' +
-      '<p>This does not mean ' + he + ' ' + (he === 'you' ? 'are' : 'is') + ' broken or failing. It means ' + his + ' brain and body are struggling under conditions \u2014 hormonal, sleep-related, identity-related \u2014 that are genuinely hard. This is clinical. It has a name. It is treatable.</p>' +
-      '<p>The most important step right now is a conversation with a GP.</p></div></div>' +
-      '<div class="result-block"><div class="result-block-title">WHAT TO DO NOW \u2014 IN ORDER</div><div class="action-list">' +
+      '<p>A score of <strong>' + total + '</strong> out of 39 falls in the range that clinically indicates <strong>probable depression</strong>. The Gotland Male Depression Scale places this score in a band that warrants professional assessment. It should not be ignored.</p>' +
+      '<p>This is not failure. ' + (isPartner ? 'His' : 'Your') + ' brain and body are responding to conditions — hormonal, sleep-related, identity-related — that are genuinely hard. This is clinical. It has a name. It is treatable.</p>' +
+      '<p>The most important step right now is a conversation with a GP.</p>' +
+      '</div></div>' +
+      '<div class="result-block"><div class="result-block-title">WHAT TO DO — IN ORDER</div><div class="action-list">' +
       '<div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Book a GP appointment this week.</strong> The words to use: "I have been struggling since the baby was born and I need to talk about my mental health." Those exact words are enough.</span></div>' +
-      '<div class="action-item"><span class="action-num">02</span><span class="action-text">Download the free guide \u2014 it explains what is happening biologically and gives ' + him + ' language to describe it to a clinician.</span></div>' +
+      '<div class="action-item"><span class="action-num">02</span><span class="action-text">The free 7 Signs guide explains what is happening biologically and gives ' + him + ' language to describe it to a clinician. Enter your email below and we will send it immediately.</span></div>' +
       '<div class="action-item"><span class="action-num">03</span><span class="action-text">If ' + hes + ' not ready for the GP yet, read the guide tonight. Then share it with one person ' + (he === 'you' ? 'you trust' : 'he trusts') + '.</span></div>' +
-      '<div class="action-item"><span class="action-num">04</span><span class="action-text">Consider The New Father\'s Postpartum Code \u2014 a structured framework for the next 90 days available at parents2beintl.com.</span></div>' +
       '</div></div>';
     ctaHTML =
-      '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/dd7e3029-babe-4365-87ec-953b82d28f16" class="cta-primary">Paternal PPD Recovery Toolkit &mdash; &pound;97 &rarr;</a>' +
-      '<a href="https://subscribepage.io/W3WGYX" class="cta-secondary">Download Free Guide: The 7 Signs &rarr;</a>' +
-      '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/8a3f0cdb-2857-49d0-b3e2-c7d379d9b9b6" class="cta-secondary">The New Father\'s Postpartum Code (&pound;47) &rarr;</a>' +
-      '<p class="gate-link">Not ready for that yet? Start with <a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/855d25df-312d-4f40-b8fb-2faeff94b97b">The Gate &mdash; &pound;19.99</a></p>' +
-      '<a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>';
+      '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/dd7e3029-babe-4365-87ec-953b82d28f16" class="cta-primary">90-Day Paternal PPD Recovery Toolkit &mdash; &pound;97 &rarr;</a>' +
+      '<a href="https://parents2beintl.com" class="cta-secondary">Return to Parents2Be International &rarr;</a>';
 
+  /* ── 27–39 ── */
   } else {
     band      = 'SIGNIFICANT \u2014 ACT TODAY';
-    bandLabel = 'Score 27\u201339: Significant depression \u2014 professional support is needed now';
+    bandLabel = 'Score 27\u201339 — Significant depression. Professional support is needed now.';
     titleHTML = 'This Score Is <em>Significant.</em> Please Act Today.';
     contentHTML =
-      '<div class="crisis-box"><div class="crisis-title">&#9888; IMMEDIATE SUPPORT AVAILABLE</div>' +
+      '<div class="crisis-box" role="alert"><div class="crisis-title">&#9888; IMMEDIATE SUPPORT AVAILABLE</div>' +
       '<p>If there are any thoughts of self-harm or not wanting to be here, please stop and contact support now.<br><br>' +
-      '<strong>Samaritans: 116 123</strong> (free, 24/7, no judgement)<br>' +
-      '<strong>NHS 111</strong> (urgent mental health support)<br>' +
-      '<strong>Your GP</strong> \u2014 call first thing tomorrow and say it is urgent.</p></div>' +
+      '<strong>Samaritans: 116 123</strong> — free, 24/7, no judgement<br>' +
+      '<strong>NHS 111</strong> — urgent mental health support<br>' +
+      '<strong>Your GP</strong> — call first thing and say it is urgent</p></div>' +
       '<div class="result-block"><div class="result-block-title">WHAT THIS SCORE MEANS</div><div class="result-body">' + pNote +
       '<p>A score of <strong>' + total + '</strong> out of 39 falls in the range that clinically indicates <strong>significant depression requiring professional support</strong>. This is the upper band of the Gotland Male Depression Scale.</p>' +
-      '<p>This is not a character failing. This is not weakness. This is a clinical condition that responds to treatment \u2014 but it does not improve without action.</p>' +
-      '<p><strong>The most important thing right now: contact a GP.</strong></p></div></div>' +
-      '<div class="result-block"><div class="result-block-title">WHAT TO DO \u2014 TODAY, NOT TOMORROW</div><div class="action-list">' +
+      '<p>This is not a character failing. This is not weakness. This is a clinical condition that responds to treatment — but it does not improve without action.</p>' +
+      '</div></div>' +
+      '<div class="result-block"><div class="result-block-title">WHAT TO DO — TODAY, NOT TOMORROW</div><div class="action-list">' +
       '<div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Contact a GP today or first thing tomorrow.</strong> Say: "I have completed a validated depression screening and scored in the significant range. I need an urgent appointment." That framing will be heard differently.</span></div>' +
-      '<div class="action-item"><span class="action-num">02</span><span class="action-text">' + (isPartner ? 'Show him this result. Say: "I am worried about you and I need you to take this seriously."' : 'Share this result with one person you trust. You do not need to explain everything \u2014 just show them the number.') + '</span></div>' +
-      '<div class="action-item"><span class="action-num">03</span><span class="action-text">Download the free guide tonight \u2014 it confirms you are not alone and gives language to describe what ' + hes + ' experiencing to a clinician.</span></div>' +
+      '<div class="action-item"><span class="action-num">02</span><span class="action-text">' + (isPartner ? 'Show him this result. Say: "I am worried about you and I need you to take this seriously."' : 'Share this result with one person you trust. You do not need to explain everything — just show them the number.') + '</span></div>' +
+      '<div class="action-item"><span class="action-num">03</span><span class="action-text">Enter your email below and we will send the free 7 Signs guide immediately — it confirms you are not alone and gives language to describe this to a clinician.</span></div>' +
       '<div class="action-item"><span class="action-num">04</span><span class="action-text">If alcohol or substances are part of the picture, tell the GP. This is clinical information, not a confession.</span></div>' +
       '</div></div>';
     ctaHTML =
-      '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/b91d62b2-f492-4003-b9db-523506fa6e90" class="cta-primary">Paternal PPD Recovery Toolkit &mdash; &pound;117 (Print + Free Retake) &rarr;</a>' +
-      '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/dd7e3029-babe-4365-87ec-953b82d28f16" class="cta-secondary">Toolkit &mdash; Digital Only &pound;97 &rarr;</a>' +
-      '<a href="https://subscribepage.io/W3WGYX" class="cta-secondary">Download Free Guide First &rarr;</a>' +
-      '<p class="gate-link">Need to understand this first? <a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/855d25df-312d-4f40-b8fb-2faeff94b97b">The Gate &mdash; &pound;19.99</a></p>' +
-      '<a href="https://parents2beintl.com" class="cta-secondary">Back to Parents2Be International</a>';
+      '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/b91d62b2-f492-4003-b9db-523506fa6e90" class="cta-primary">90-Day Recovery Toolkit &mdash; &pound;117 (Print + Digital) &rarr;</a>' +
+      '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/dd7e3029-babe-4365-87ec-953b82d28f16" class="cta-secondary">Digital Only &mdash; &pound;97 &rarr;</a>' +
+      '<a href="https://parents2beintl.com" class="cta-secondary">Return to Parents2Be International &rarr;</a>';
   }
 
   document.getElementById('score-number').textContent = total;
@@ -994,42 +979,92 @@ function showResults() {
   document.getElementById('result-content').innerHTML = contentHTML;
   document.getElementById('cta-stack').innerHTML      = ctaHTML;
 
-  document.getElementById('email-desc').textContent = isPartner
-    ? "Enter your email and we will send you the free partner guide based on what you have observed."
-    : "Enter your email and we will send you the free guide written for you, based on your score.";
+  // Partner-specific email label
+  if (whoIs === 'partner') {
+    document.getElementById('email-capture-desc').innerHTML =
+      'The <strong>7 Signs of Paternal PPD</strong> guide is written for partners — it explains what you may be seeing and how to talk to him about it. Enter your email and we will send it now.';
+  }
+
+  document.getElementById('progress-fill').style.width = '100%';
+  document.getElementById('progress-label').textContent = '13 / 13';
+  document.getElementById('progress-wrap').setAttribute('aria-valuenow', '13');
+
+  showScreen('screen-results');
 
   setTimeout(function() {
     document.getElementById('score-bar-fill').style.width = pct + '%';
   }, 120);
 
-  document.getElementById('progress-fill').style.width = '100%';
-  document.getElementById('progress-label').textContent = '13 / 13';
-
-  showScreen('screen-results');
+  // GA4: assessment completed — score and band visible without email
+  var bandKey = total <= 12 ? 'none' : total <= 26 ? 'probable' : 'significant';
+  gtag('event', 'assessment_completed', {
+    score: total,
+    band: bandKey,
+    who: whoIs
+  });
 }
 
+/* ═══════════════════════════
+   EMAIL SUBMIT — optional, routes to correct ML group
+═══════════════════════════ */
 function submitEmail() {
-  var emailEl = document.getElementById('email-input');
-  var email   = emailEl.value.trim();
-  if (!email || email.indexOf('@') === -1) {
-    emailEl.style.borderColor = '#e07070';
+  var emailEl  = document.getElementById('email-input');
+  var errorEl  = document.getElementById('email-error');
+  var submitEl = document.getElementById('email-submit-btn');
+  var email    = emailEl.value.trim();
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    emailEl.classList.add('error');
+    errorEl.classList.add('show');
     emailEl.focus();
     return;
   }
-  emailEl.style.borderColor = '';
-  var total = 0;
-  for (var i = 0; i < answers.length; i++) { total += (answers[i] || 0); }
-  var band = total <= 12 ? 'none' : total <= 26 ? 'probable' : 'significant';
-  fetch('/.netlify/functions/subscribe', {
+  emailEl.classList.remove('error');
+  errorEl.classList.remove('show');
+  submitEl.disabled = true;
+  submitEl.textContent = 'Sending\u2026';
+
+  var band    = resultTotal <= 12 ? 'none' : resultTotal <= 26 ? 'probable' : 'significant';
+  var groupId = whoIs === 'partner' ? ML_GROUP_PARTNER : ML_GROUP_FATHER;
+
+  var payload = {
+    email: email,
+    resubscribe: true,
+    groups: [groupId],
+    fields: {
+      score: String(resultTotal),
+      band: band,
+      who: whoIs
+    }
+  };
+
+  fetch('https://api.mailerlite.com/api/v2/subscribers', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, score: total, band: band, who: whoIs })
-  }).catch(function() {});
-  document.getElementById('email-capture').innerHTML =
-    '<div style="text-align:center;padding:1rem 0;">' +
-    '<div style="font-family:\'Courier New\',monospace;font-size:0.6rem;letter-spacing:0.2em;color:#C9A84C;margin-bottom:0.5rem;">CONFIRMED</div>' +
-    '<p style="font-family:Arial,sans-serif;font-size:0.78rem;color:rgba(245,245,245,0.6);line-height:1.7;">' +
-    'Guide sent to <strong style="color:#F5F5F5">' + email + '</strong>.<br>' +
+    headers: {
+      'Content-Type': 'application/json',
+      'X-MailerLite-ApiKey': ML_API_KEY
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) {
+    if (!res.ok) { res.text().then(function(t){ console.warn('ML:', res.status, t); }); }
+    showEmailConfirmed(email);
+  })
+  .catch(function(err) {
+    console.warn('ML error:', err);
+    showEmailConfirmed(email); // don't block user on network fault
+  });
+
+  // GA4: email submitted
+  gtag('event', 'email_submitted', { band: band, who: whoIs });
+}
+
+function showEmailConfirmed(email) {
+  document.getElementById('email-capture-wrap').innerHTML =
+    '<div style="text-align:center;padding:0.75rem 0;">' +
+    '<div style="font-family:\'Courier New\',monospace;font-size:0.72rem;letter-spacing:0.2em;color:#C9A84C;margin-bottom:0.6rem;">GUIDE ON ITS WAY</div>' +
+    '<p style="font-family:Arial,sans-serif;font-size:0.95rem;color:rgba(245,245,245,0.65);line-height:1.7;">' +
+    'Sent to <strong style="color:#F5F5F5">' + email + '</strong>.<br>' +
     'Check your inbox \u2014 and your spam folder if it does not arrive within 5 minutes.</p></div>';
 }
 </script>
