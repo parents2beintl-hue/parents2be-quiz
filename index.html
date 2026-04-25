@@ -1242,11 +1242,11 @@ function submitEmail() {
     }
   };
 
-  fetch('https://api.mailerlite.com/api/v2/subscribers', {
+  fetch('https://connect.mailerlite.com/api/subscribers', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-MailerLite-ApiKey': ML_API_KEY
+      'Authorization': 'Bearer ' + ML_API_KEY
     },
     body: JSON.stringify(payload)
   })
