@@ -6,7 +6,7 @@
 <title>Paternal Postpartum Depression Assessment | Parents2Be International</title>
 <meta name="description" content="A clinically validated screening tool for paternal postpartum depression. Free, anonymous, evidence-based.">
 
-<!-- GA4 — fires pageview and completion events -->
+<!-- GA4 - fires pageview and completion events -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E0KTPZJX8Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -660,7 +660,7 @@
     position: relative;
   }
   .toolkit-contents li::before {
-    content: '—';
+    content: '-';
     position: absolute;
     left: 0;
     color: var(--gold);
@@ -801,7 +801,7 @@
     </div>
     <button class="btn-start" id="btn-start" onclick="startAssessment()">Begin Assessment &rarr;</button>
     <div class="trust-row" aria-label="Trust indicators">
-      <span class="trust-item">Anonymous — no data stored</span>
+      <span class="trust-item">Anonymous - no data stored</span>
       <span class="trust-item">Clinically validated</span>
       <span class="trust-item">Under 3 minutes</span>
       <span class="trust-item">No email required</span>
@@ -824,7 +824,7 @@
     </div>
   </div>
 
-  <!-- ══ RESULTS — score shows immediately, no email required ══ -->
+  <!-- ══ RESULTS - score shows immediately, no email required ══ -->
   <div id="screen-results" class="screen" role="main">
     <div class="result-eyebrow" aria-hidden="true">ASSESSMENT COMPLETE &middot; PARENTS2BE.INTL</div>
     <h2 id="result-title"></h2>
@@ -842,9 +842,9 @@
         <div class="score-bar-fill" id="score-bar-fill"></div>
       </div>
       <div class="score-bar-labels">
-        <span>0 &mdash; None</span>
-        <span>13 &mdash; Probable</span>
-        <span>27 &mdash; Significant</span>
+        <span>0 - None</span>
+        <span>13 - Probable</span>
+        <span>27 - Significant</span>
         <span>39</span>
       </div>
     </div>
@@ -852,10 +852,10 @@
     <!-- Clinical content block -->
     <div id="result-content"></div>
 
-    <!-- Primary CTA stack — no email wall -->
+    <!-- Primary CTA stack - no email wall -->
     <div class="cta-stack" id="cta-stack"></div>
 
-    <!-- Email capture — optional, positioned as added value -->
+    <!-- Email capture - optional, positioned as added value -->
     <div class="email-capture-wrap" id="email-capture-wrap">
       <span class="email-capture-label" id="email-capture-label">GET THE FREE GUIDE</span>
       <p class="email-capture-desc" id="email-capture-desc">
@@ -882,7 +882,7 @@
     <p class="disclaimer">
       This assessment is for informational purposes only and does not constitute a clinical diagnosis.
       The Gotland Male Depression Scale (Zierau et al., 2002) is a validated screening instrument.
-      A positive screen indicates that professional assessment is warranted &mdash; not that a diagnosis has been made.
+      A positive screen indicates that professional assessment is warranted - not that a diagnosis has been made.
       If you are concerned about immediate safety, contact your GP or call the Samaritans on
       <strong>116 123</strong> (free, 24/7).
     </p>
@@ -1027,7 +1027,7 @@ function prevQ() {
 /* ═══════════════════════════
    TOOLKIT PANEL BUILDER
    Honest, transparent side-by-side
-   of both options — no hidden upsell
+   of both options - no hidden upsell
 ═══════════════════════════ */
 function buildToolkitPanel(band) {
   var introText = {
@@ -1047,11 +1047,11 @@ function buildToolkitPanel(band) {
       '<div class="toolkit-what">' +
         '<div class="toolkit-what-title">WHAT IS INSIDE</div>' +
         '<ul class="toolkit-contents">' +
-          '<li><strong>Section 1 — Understanding It:</strong> The clinical picture of paternal PPD explained plainly, with NHS-cited context</li>' +
-          '<li><strong>Section 2 — The 90-Day Framework:</strong> A week-by-week structure for recovery, not generic advice</li>' +
-          '<li><strong>Section 3 — The Partner Guide:</strong> How the people closest to him can help without making it worse</li>' +
-          '<li><strong>Section 4 — GP Preparation:</strong> Scripts and language for the clinical conversation most fathers dread</li>' +
-          '<li><strong>Section 5 — Progress Tracking:</strong> A simple weekly check-in system built around the Gotland scale</li>' +
+          '<li><strong>Section 1 - Understanding It:</strong> The clinical picture of paternal PPD explained plainly, with NHS-cited context</li>' +
+          '<li><strong>Section 2 - The 90-Day Framework:</strong> A week-by-week structure for recovery, not generic advice</li>' +
+          '<li><strong>Section 3 - The Partner Guide:</strong> How the people closest to him can help without making it worse</li>' +
+          '<li><strong>Section 4 - GP Preparation:</strong> Scripts and language for the clinical conversation most fathers dread</li>' +
+          '<li><strong>Section 5 - Progress Tracking:</strong> A simple weekly check-in system built around the Gotland scale</li>' +
         '</ul>' +
       '</div>' +
 
@@ -1061,37 +1061,24 @@ function buildToolkitPanel(band) {
           '<div class="toolkit-option-name">DIGITAL EDITION</div>' +
           '<div class="toolkit-option-price">&pound;97 <span>One-time. No subscription.</span></div>' +
           '<div class="toolkit-option-includes">' +
-            'Full five-section toolkit as an interactive digital resource. ' +
-            'Access immediately after purchase. ' +
+            'Full five-section interactive toolkit. ' +
+            'Access immediately after purchase. Save to your phone or desktop and return whenever you need it. ' +
             '<strong>Evidence-based. NHS-cited. Built for the father nobody checks on.</strong>' +
           '</div>' +
-          '<div class="toolkit-option-note">This is the complete toolkit. Nothing is held back in the print edition.</div>' +
-          '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/dd7e3029-babe-4365-87ec-953b82d28f16" class="toolkit-buy-btn">Get Digital Edition &mdash; &pound;97 &rarr;</a>' +
-        '</div>' +
-
-        '<div class="toolkit-option">' +
-          '<div class="toolkit-option-name">PRINT + DIGITAL EDITION</div>' +
-          '<div class="toolkit-option-price">&pound;117 <span>One-time. No subscription.</span></div>' +
-          '<div class="toolkit-option-includes">' +
-            'Everything in the digital edition, plus a <strong>printed copy sent to your address.</strong> ' +
-            'Some people find a physical resource easier to engage with. ' +
-            'Includes one free assessment retake to track progress.' +
-          '</div>' +
-          '<div class="toolkit-option-note">The print edition costs more because it costs more to produce. That is the only reason.</div>' +
-          '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/b91d62b2-f492-4003-b9db-523506fa6e90" class="toolkit-buy-btn secondary">Get Print + Digital &mdash; &pound;117 &rarr;</a>' +
+          '<a href="https://parents2beintl.lemonsqueezy.com/checkout/buy/dd7e3029-babe-4365-87ec-953b82d28f16" class="toolkit-buy-btn">Get the Toolkit - &pound;97 &rarr;</a>' +
         '</div>' +
 
       '</div>' +
 
       '<div class="toolkit-honest-note">' +
-        'Both options contain identical content. The difference is format only. There is no premium tier, no upsell after purchase, and no subscription. If you are not sure, start with the free 7 Signs guide below.' +
+        'One-time purchase. No subscription. No upsell after purchase. Need a print or accessible format? Contact hello@parents2beintl.com' +
       '</div>' +
 
     '</div>';
 }
 
 /* ═══════════════════════════
-   RESULTS — immediate, no email wall
+   RESULTS - immediate, no email wall
 ═══════════════════════════ */
 function showResults() {
   var total = 0;
@@ -1106,7 +1093,7 @@ function showResults() {
   var hes  = isPartner ? "he's" : "you're";
 
   var pNote = isPartner
-    ? '<p class="partner-note">You completed this on behalf of your partner. What you have observed matters — partners are often the first and only people to notice.</p>'
+    ? '<p class="partner-note">You completed this on behalf of your partner. What you have observed matters - partners are often the first and only people to notice.</p>'
     : '';
 
   var band, bandLabel, titleHTML, contentHTML, ctaHTML;
@@ -1114,7 +1101,7 @@ function showResults() {
   /* ── 0–12 ── */
   if (total <= 12) {
     band      = 'NO SIGNIFICANT INDICATION';
-    bandLabel = 'Score 0\u201312 — No significant indication of depression at this time';
+    bandLabel = 'Score 0\u201312 - No significant indication of depression at this time';
     titleHTML = 'At This Score, <em>No Significant Indication</em> Is Present.';
     contentHTML =
       '<div class="result-block"><div class="result-block-title">WHAT THIS MEANS</div><div class="result-body">' + pNote +
@@ -1127,48 +1114,48 @@ function showResults() {
       '<div class="action-item"><span class="action-num">03</span><span class="action-text">If ' + his + ' mood or behaviour changes significantly, take the assessment again or speak to a GP.</span></div>' +
       '</div></div>';
     ctaHTML = buildToolkitPanel('low') +
-      '<a href="https://subscribepage.io/W3WGYX" class="cta-secondary" style="margin-top:1rem;">Start free — download the 7 Signs guide first &rarr;</a>' +
+      '<a href="https://subscribepage.io/W3WGYX" class="cta-secondary" style="margin-top:1rem;">Start free - download the 7 Signs guide first &rarr;</a>' +
       '<a href="https://parents2beintl.com" class="cta-secondary">Return to Parents2Be International &rarr;</a>';
 
   /* ── 13–26 ── */
   } else if (total <= 26) {
     band      = 'PROBABLE DEPRESSION';
-    bandLabel = 'Score 13\u201326 — Probable depression. Professional assessment is recommended.';
+    bandLabel = 'Score 13\u201326 - Probable depression. Professional assessment is recommended.';
     titleHTML = 'This Score Indicates <em>Probable Depression.</em>';
     contentHTML =
       '<div class="result-block"><div class="result-block-title">WHAT THIS MEANS</div><div class="result-body">' + pNote +
       '<p>A score of <strong>' + total + '</strong> out of 39 falls in the range that clinically indicates <strong>probable depression</strong>. The Gotland Male Depression Scale places this score in a band that warrants professional assessment. It should not be ignored.</p>' +
-      '<p>This is not failure. ' + (isPartner ? 'His' : 'Your') + ' brain and body are responding to conditions — hormonal, sleep-related, identity-related — that are genuinely hard. This is clinical. It has a name. It is treatable.</p>' +
+      '<p>This is not failure. ' + (isPartner ? 'His' : 'Your') + ' brain and body are responding to conditions - hormonal, sleep-related, identity-related - that are genuinely hard. This is clinical. It has a name. It is treatable.</p>' +
       '<p>The most important step right now is a conversation with a GP.</p>' +
       '</div></div>' +
-      '<div class="result-block"><div class="result-block-title">WHAT TO DO — IN ORDER</div><div class="action-list">' +
+      '<div class="result-block"><div class="result-block-title">WHAT TO DO - IN ORDER</div><div class="action-list">' +
       '<div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Book a GP appointment this week.</strong> The words to use: "I have been struggling since the baby was born and I need to talk about my mental health." Those exact words are enough.</span></div>' +
       '<div class="action-item"><span class="action-num">02</span><span class="action-text">The free 7 Signs guide explains what is happening biologically and gives ' + him + ' language to describe it to a clinician. Enter your email below and we will send it immediately.</span></div>' +
       '<div class="action-item"><span class="action-num">03</span><span class="action-text">If ' + hes + ' not ready for the GP yet, read the guide tonight. Then share it with one person ' + (he === 'you' ? 'you trust' : 'he trusts') + '.</span></div>' +
       '</div></div>';
     ctaHTML = buildToolkitPanel('mid') +
-      '<a href="https://subscribepage.io/W3WGYX" class="cta-secondary" style="margin-top:1rem;">Not ready yet — start with the free 7 Signs guide &rarr;</a>' +
+      '<a href="https://subscribepage.io/W3WGYX" class="cta-secondary" style="margin-top:1rem;">Not ready yet - start with the free 7 Signs guide &rarr;</a>' +
       '<a href="https://parents2beintl.com" class="cta-secondary">Return to Parents2Be International &rarr;</a>';
 
   /* ── 27–39 ── */
   } else {
     band      = 'SIGNIFICANT \u2014 ACT TODAY';
-    bandLabel = 'Score 27\u201339 — Significant depression. Professional support is needed now.';
+    bandLabel = 'Score 27\u201339 - Significant depression. Professional support is needed now.';
     titleHTML = 'This Score Is <em>Significant.</em> Please Act Today.';
     contentHTML =
       '<div class="crisis-box" role="alert"><div class="crisis-title">&#9888; IMMEDIATE SUPPORT AVAILABLE</div>' +
       '<p>If there are any thoughts of self-harm or not wanting to be here, please stop and contact support now.<br><br>' +
-      '<strong>Samaritans: 116 123</strong> — free, 24/7, no judgement<br>' +
-      '<strong>NHS 111</strong> — urgent mental health support<br>' +
-      '<strong>Your GP</strong> — call first thing and say it is urgent</p></div>' +
+      '<strong>Samaritans: 116 123</strong> - free, 24/7, no judgement<br>' +
+      '<strong>NHS 111</strong> - urgent mental health support<br>' +
+      '<strong>Your GP</strong> - call first thing and say it is urgent</p></div>' +
       '<div class="result-block"><div class="result-block-title">WHAT THIS SCORE MEANS</div><div class="result-body">' + pNote +
       '<p>A score of <strong>' + total + '</strong> out of 39 falls in the range that clinically indicates <strong>significant depression requiring professional support</strong>. This is the upper band of the Gotland Male Depression Scale.</p>' +
-      '<p>This is not a character failing. This is not weakness. This is a clinical condition that responds to treatment — but it does not improve without action.</p>' +
+      '<p>This is not a character failing. This is not weakness. This is a clinical condition that responds to treatment - but it does not improve without action.</p>' +
       '</div></div>' +
-      '<div class="result-block"><div class="result-block-title">WHAT TO DO — TODAY, NOT TOMORROW</div><div class="action-list">' +
+      '<div class="result-block"><div class="result-block-title">WHAT TO DO - TODAY, NOT TOMORROW</div><div class="action-list">' +
       '<div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>Contact a GP today or first thing tomorrow.</strong> Say: "I have completed a validated depression screening and scored in the significant range. I need an urgent appointment." That framing will be heard differently.</span></div>' +
-      '<div class="action-item"><span class="action-num">02</span><span class="action-text">' + (isPartner ? 'Show him this result. Say: "I am worried about you and I need you to take this seriously."' : 'Share this result with one person you trust. You do not need to explain everything — just show them the number.') + '</span></div>' +
-      '<div class="action-item"><span class="action-num">03</span><span class="action-text">Enter your email below and we will send the free 7 Signs guide immediately — it confirms you are not alone and gives language to describe this to a clinician.</span></div>' +
+      '<div class="action-item"><span class="action-num">02</span><span class="action-text">' + (isPartner ? 'Show him this result. Say: "I am worried about you and I need you to take this seriously."' : 'Share this result with one person you trust. You do not need to explain everything - just show them the number.') + '</span></div>' +
+      '<div class="action-item"><span class="action-num">03</span><span class="action-text">Enter your email below and we will send the free 7 Signs guide immediately - it confirms you are not alone and gives language to describe this to a clinician.</span></div>' +
       '<div class="action-item"><span class="action-num">04</span><span class="action-text">If alcohol or substances are part of the picture, tell the GP. This is clinical information, not a confession.</span></div>' +
       '</div></div>';
     ctaHTML = buildToolkitPanel('high') +
@@ -1199,7 +1186,7 @@ function showResults() {
     document.getElementById('score-bar-fill').style.width = pct + '%';
   }, 120);
 
-  // GA4: assessment completed — score and band visible without email
+  // GA4: assessment completed - score and band visible without email
   var bandKey = total <= 12 ? 'none' : total <= 26 ? 'probable' : 'significant';
   gtag('event', 'assessment_completed', {
     score: total,
@@ -1209,7 +1196,7 @@ function showResults() {
 }
 
 /* ═══════════════════════════
-   EMAIL SUBMIT — optional, routes to correct ML group
+   EMAIL SUBMIT - optional, routes to correct ML group
 ═══════════════════════════ */
 function submitEmail() {
   var emailEl  = document.getElementById('email-input');
